@@ -11,6 +11,11 @@ module tb_usb_tx ();
     end
 
     logic clk, n_rst;
+    logic tx_transfer_active, tx_error, get_tx_packet_data, dp_out, dm_out;
+    logic [3:0] tx_packet;
+    logic [6:0] buffer_occupancy;
+    logic [7:0] tx_packet_data;
+
 
     // clockgen
     always begin

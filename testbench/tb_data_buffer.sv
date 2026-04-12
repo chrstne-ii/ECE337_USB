@@ -11,6 +11,9 @@ module tb_data_buffer ();
     end
 
     logic clk, n_rst;
+    logic flush, clear, store_rx_packet_data, store_tx_data, get_rx_data, get_tx_packet_data;
+    logic [6:0] buffer_occupancy;
+    logic [7:0] tx_data, rx_packet_data, rx_data, tx_packet_data;
 
     // clockgen
     always begin
