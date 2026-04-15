@@ -50,12 +50,9 @@ module tb_usb_rx ();
     end
     endtask
 
-    task send_token;
-    
-    begin
-        @(negedge clk);
-    end
-    endtask
+    logic [7:0] rx_packet_data;
+    logic [2:0] rx_packet;
+    logic rx_transfer_active, rx_data_ready, rx_error, flush;
 
     usb_rx DUT (.clk(clk), .n_rst(n_rst), .dp_in(dp_in), .dm_in(dm_in), .rx_packet(rx_packet), .rx_packet_data(rx_packet_data)
                 .rx_data_ready(rx_data_ready), .rx_error(.rx_error), .rx_transfer_active(rx_transfer_active), .flush(flush));
@@ -64,6 +61,11 @@ module tb_usb_rx ();
         n_rst = 1;
 
         reset_dut;
+
+        dp_in = '1;
+        dm_in = '0;
+
+        send_byte(.data(8'h01), .data_period(10));
 
         $finish;
     end
