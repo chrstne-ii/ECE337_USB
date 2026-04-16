@@ -1,11 +1,5 @@
 `timescale 1ns / 10ps
 
-localparam DATA0 =   4'b0011;
-localparam DATA1 =   4'b1011;
-localparam ACK   =   4'b0010;
-localparam NAK   =   4'b1010;
-localparam STALL =   4'b1110;
-
 module usb_tx #(
     // parameters
 ) (
@@ -19,7 +13,7 @@ module usb_tx #(
     logic next_DP_OUT, next_DM_OUT;
     logic [7:0] pid_packet, packet;
     logic [4:0] clk_count;
-    logic bit_clk, enable_timer, end_packet, first, clear, rollover_25, rollover_8, serial_out, load_enable;
+    logic bit_clk, enable_timer, end_packet, first, clear, rollover_25, rollover_8, serial_out, load_enable, idle;
 
     logic [3:0] invert;
     logic [7:0] non_flipped;
@@ -47,6 +41,36 @@ module usb_tx #(
     flex_counter #(.SIZE(4)) byte_counter(.clk(clk), .n_rst(n_rst), .clear(clear), .rollover_val(4'd8), .rollover_flag(rollover_8));
 
     assign load_enable = rollover_8 | first;
+
+    flex_sr #(.SIZE(8), .MSB_FIRST(1)) load_sr(.clk(clk), .n_rst(n_rst), .shift_enable(bit_clk), 
+              .load_enable(load_enable), .serial_in(1'b0), .parallel_in(packet), .serial_out(serial_out));
+
+    always_comb begin : NEXT_DP_LOGIC
+        if (end_packet) begin
+            next_DM_OUT = 1'b0;
+            next_DP_OUT = 1'b0;
+        end else if (idle) begin
+            next_DM_OUT = 1'b0;
+            next_DP_OUT = 1'b1;
+        end else if (serial_out) begin
+            next_DP_OUT = dp_out;
+            next_DM_OUT = dm_out;
+        end
+        else begin
+            next_DM_OUT = !dm_out;
+            next_DP_OUT = !dp_out;
+        end
+    end
+
+    always_ff @(posedge clk, negedge n_rst) begin : OUTPUT_ENCODE
+        if (!n_rst) begin
+            dp_out <= 1'b1;
+            dm_out <= 1'b0;
+        end else if (bit_clk) begin
+            dp_out <= next_DP_OUT;
+            dm_out <= next_DM_OUT;
+        end
+    end
     
 
 endmodule

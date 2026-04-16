@@ -5,6 +5,12 @@ typedef enum logic [5:0] {
     STORE_EOP, LOAD_EOP1, LOAD_EOP2, RESET, ERROR
 } state_t;
 
+localparam DATA0 =   4'b0011;
+localparam DATA1 =   4'b1011;
+localparam ACK   =   4'b0010;
+localparam NAK   =   4'b1010;
+localparam STALL =   4'b1110;
+
 module tx_fsm #(
     // parameters
 ) (
@@ -13,7 +19,7 @@ module tx_fsm #(
     input logic [6:0] buffer_occupancy,
     input logic [7:0] pid_packet,
     input logic bit_clk,
-    output logic enable_timer, tx_transfer_active, end_packet, get_tx_packet_data, first, clear, tx_error,
+    output logic enable_timer, tx_transfer_active, end_packet, get_tx_packet_data, first, clear, tx_error, idle
     output logic [7:0] packet
 );
     state_t state, next_state;
@@ -102,7 +108,10 @@ module tx_fsm #(
         first = 1'b0;
         clear = 1'b0;
         tx_error = 1'b0;
+        idle = 1'b0;
         case (state)
+            IDLE:
+                idle = 1'b1;
             STORE_SYNC: begin
                 tx_transfer_active = 1'b1;
                 packet = 8'b1;
