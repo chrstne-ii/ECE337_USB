@@ -12,6 +12,7 @@ filesets:
         depend:
             - "u337mg046:ece337:flex_sr:1.0.0"
             - "u337mg046:ece337:flex_counter:1.0.0"
+            - "u337mg164:ece337:tx_fsm:1.0.0"
 
     synth:
         depend:
