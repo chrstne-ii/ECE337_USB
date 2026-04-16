@@ -56,7 +56,7 @@ module tb_ahb_subordinate ();
         if(hsize == 2'b00) begin
             @(posedge clk);
             if(hready) begin
-                hsel = 0;
+                
             end
             
         end
