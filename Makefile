@@ -1,5 +1,5 @@
 # created and developed by roboticowl4000
-VERSION = 1.5.0
+VERSION = 1.5.3
 SHELL = /bin/bash
 
 MG = u337mg164
@@ -224,6 +224,7 @@ syn_%: clean_build
 
 	$(debug_syn)
 
+	@$(call file_has,$(REPORTS)/synth.log,(DCSH-1),"Design Compiler is not loaded")
 	@$(call finderr,$(BUILD),"*.eda.yml","Could not decode build directory structure.")
 	@$(call ftest,$$(dirname $$(find $(BUILD) -name "*.eda.yml"))/$*.v,"Synthesis failed to generate netlist.")
 
@@ -329,6 +330,8 @@ endif
 # ANALYSIS TARGETS
 
 vlint_%:
+	@$(call ftest,$(SCRIPTS)/waves.tcl,"Could not find the waveform script. Have you run \"make buildsys_setup\" yet?")
+	@$(call ftest,$(SCRIPTS)/questafiles.core,"Could not find the waveform script. Have you run \"make buildsys_setup\" yet?")
 	@fusesoc --cores-root . run --build-root $(BUILD) --setup --build --run --target lint --tool verilator $(MG):$(COURSE):$*
 
 schem_%:
