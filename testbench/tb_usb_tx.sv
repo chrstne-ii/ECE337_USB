@@ -5,6 +5,12 @@ module tb_usb_tx ();
 
     localparam CLK_PERIOD = 10ns;
 
+    localparam DATA0 =   4'b0011;
+    localparam DATA1 =   4'b1011;
+    localparam ACK   =   4'b0010;
+    localparam NAK   =   4'b1010;
+    localparam STALL =   4'b1110;
+
     initial begin
         $dumpfile("waveform.vcd");
         $dumpvars;
@@ -41,8 +47,26 @@ module tb_usb_tx ();
 
     initial begin
         n_rst = 1;
+        tx_packet = 4'b0;
+        tx_packet_data = 8'b0;
+        buffer_occupancy = 7'b0;
+
 
         reset_dut;
+
+        //test error
+        tx_packet = DATA0;
+        @(negedge clk); //state: ERROR
+
+        //test get_tx_packet_data low
+        buffer_occupancy = 12;
+        @(negedge clk) //STATE: STORE SYNC
+        @(negedge clk) //STATE: LOAD SYNC
+        @(negedge clk) //STATE: STORE PIC
+        tx_packet = 4'b0;
+        repeat (75) @(negedge clk); //STATE: LOAD_PID
+        tx_packet = DATA0;
+        @(negedge clk); //STATE: STORE DATA
 
         $finish;
     end

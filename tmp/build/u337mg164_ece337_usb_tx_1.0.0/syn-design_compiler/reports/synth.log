@@ -31,16 +31,6 @@ Please use '-no_save' simv switch to avoid this.
             Inclusivity and Diversity" (Refer to article 000036315 at
                         https://solvnetplus.synopsys.com)
 Initializing...
-<<<<<<< HEAD
-Initializing gui preferences from file  /home/ecegridfs/a/337mg164/.synopsys_dc_gui/preferences.tcl
-Current time:       Fri Apr 17 15:42:04 2026
-Hostname:           ececomp4.ecn.purdue.edu
-CPU Model:          AMD EPYC 7513 32-Core Processor
-CPU Details:        Cores = 128 : Sockets = 2 : Cache Size = 512 KB : Freq = 2.60 GHz
-OS:                 Linux 4.18.0-553.111.1.el8_10.x86_64
-RAM:                502 GB (Free  95 GB)
-Swap:                63 GB (Free  56 GB)
-=======
 Initializing gui preferences from file  /home/ecegridfs/a/337mg046/.synopsys_dc_gui/preferences.tcl
 Current time:       Fri Apr 17 16:31:34 2026
 Hostname:           ececomp3.ecn.purdue.edu
@@ -49,17 +39,12 @@ CPU Details:        Cores = 128 : Sockets = 2 : Cache Size = 512 KB : Freq = 2.6
 OS:                 Linux 4.18.0-553.111.1.el8_10.x86_64
 RAM:                502 GB (Free 107 GB)
 Swap:                63 GB (Free  60 GB)
->>>>>>> 1f979c7 (tx synth)
 Work Filesystem:    /home/ecegridfs/a mounted to ecegridfs.ecn.purdue.edu:/export/home/a
 Tmp Filesystem:     /tmp mounted to tmpfs
 Work Disk:          2968 GB (Free 379 GB)
 Tmp Disk:            19 GB (Free  18 GB)
 
-<<<<<<< HEAD
-CPU Load: 15%, Ram Free: 95 GB, Swap Free: 56 GB, Work Disk Free: 379 GB, Tmp Disk Free: 18 GB
-=======
 CPU Load: 7%, Ram Free: 107 GB, Swap Free: 60 GB, Work Disk Free: 379 GB, Tmp Disk Free: 18 GB
->>>>>>> 1f979c7 (tx synth)
 ############################################
 #
 # Auto-generated project tcl file:
@@ -68,15 +53,6 @@ CPU Load: 7%, Ram Free: 107 GB, Swap Free: 60 GB, Work Disk Free: 379 GB, Tmp Di
 #
 ############################################
 sh date
-<<<<<<< HEAD
-Fri Apr 17 15:42:04 EDT 2026
-set TOP_MODULE hready_read_fsm
-hready_read_fsm
-set DC_SCRIPT synth.tcl
-synth.tcl
-set READ_SOURCES u337mg164_ece337_hready_read_fsm_1.0.0-read-sources
-u337mg164_ece337_hready_read_fsm_1.0.0-read-sources
-=======
 Fri Apr 17 16:31:34 EDT 2026
 set TOP_MODULE usb_tx
 usb_tx
@@ -84,7 +60,6 @@ set DC_SCRIPT synth.tcl
 synth.tcl
 set READ_SOURCES u337mg164_ece337_usb_tx_1.0.0-read-sources
 u337mg164_ece337_usb_tx_1.0.0-read-sources
->>>>>>> 1f979c7 (tx synth)
 set SCRIPT_DIR src/u337mg164_ece337_synfiles_0
 src/u337mg164_ece337_synfiles_0
 set REPORT_DIR reports
@@ -101,16 +76,6 @@ set link_library   [concat "*"  /home/ecegrid/a/ece337/summer24-refactor/tech/am
 ############################################
 source ${SCRIPT_DIR}/${DC_SCRIPT}
 Running PRESTO HDLC
-<<<<<<< HEAD
-Compiling source file ./src/u337mg164_ece337_hready_read_fsm_1.0.0/source/hready_read_fsm.sv
-Error:  ./src/u337mg164_ece337_hready_read_fsm_1.0.0/source/hready_read_fsm.sv:14: Syntax error at or near token 'logic'. (VER-294)
-Error:  ./src/u337mg164_ece337_hready_read_fsm_1.0.0/source/hready_read_fsm.sv:16: Syntax error at or near token ','. (VER-294)
-Error:  ./src/u337mg164_ece337_hready_read_fsm_1.0.0/source/hready_read_fsm.sv:31: Syntax error at or near token '='. (VER-294)
-Error:  ./src/u337mg164_ece337_hready_read_fsm_1.0.0/source/hready_read_fsm.sv:114: Syntax error at or near token 'endcase'. (VER-294)
-*** Presto compilation terminated with 4 errors. ***
-Loading db file '/home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db'
-Loading db file '/package/eda/synopsys/syn/W-2024.09-SP4/libraries/syn/dw_foundation.sldb'
-=======
 Compiling source file ./src/u337mg046_ece337_flex_counter_1.0.0/source/flex_counter.sv
 Presto compilation completed successfully.
 Loading db file '/home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db'
@@ -124,23 +89,10 @@ Presto compilation completed successfully.
 Running PRESTO HDLC
 Compiling source file ./src/u337mg164_ece337_usb_tx_1.0.0/source/usb_tx.sv
 Presto compilation completed successfully.
->>>>>>> 1f979c7 (tx synth)
 Loading db file '/package/eda/synopsys/syn/W-2024.09-SP4/libraries/syn/gtech.db'
 Loading db file '/package/eda/synopsys/syn/W-2024.09-SP4/libraries/syn/standard.sldb'
   Loading link library 'osu05_stdcells'
   Loading link library 'gtech'
-<<<<<<< HEAD
-Error: Cannot find the design 'hready_read_fsm' in the library 'WORK'. (LBR-0)
-Error: Current design is not defined. (UID-4)
-Error: Current design is not defined. (UID-4)
-Error: Current design is not defined. (UID-4)
-Error: No files or designs were specified. (UID-22)
-
-Memory usage for this session 116 Mbytes.
-Memory usage for this session including child processes 116 Mbytes.
-CPU usage for this session 3 seconds ( 0.00 hours ).
-Elapsed time for this session 3 seconds ( 0.00 hours ).
-=======
 Running PRESTO HDLC
 
 Inferred memory devices in process in routine 'usb_tx' in file
@@ -505,6 +457,5 @@ Memory usage for this session 150 Mbytes.
 Memory usage for this session including child processes 150 Mbytes.
 CPU usage for this session 5 seconds ( 0.00 hours ).
 Elapsed time for this session 7 seconds ( 0.00 hours ).
->>>>>>> 1f979c7 (tx synth)
 
 Thank you...

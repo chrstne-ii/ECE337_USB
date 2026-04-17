@@ -3,7 +3,6 @@
 
 module tb_usb ();
 
-    localparam CLK_PERIOD = 10ns;
 
     initial begin
         $dumpfile("waveform.vcd");

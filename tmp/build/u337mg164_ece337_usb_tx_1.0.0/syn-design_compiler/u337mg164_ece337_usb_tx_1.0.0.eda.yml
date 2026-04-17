@@ -1,0 +1,46 @@
+version: 0.2.1
+dependencies:
+  u337mg046:ece337:flex_counter:1.0.0: []
+  u337mg046:ece337:flex_sr:1.0.0: []
+  u337mg164:ece337:synfiles:0: []
+  u337mg164:ece337:tx_fsm:1.0.0: []
+  u337mg164:ece337:usb_tx:1.0.0:
+  - u337mg046:ece337:flex_counter:1.0.0
+  - u337mg046:ece337:flex_sr:1.0.0
+  - u337mg164:ece337:synfiles:0
+  - u337mg164:ece337:tx_fsm:1.0.0
+files:
+- file_type: systemVerilogSource
+  name: src/u337mg046_ece337_flex_counter_1.0.0/source/flex_counter.sv
+  core: u337mg046:ece337:flex_counter:1.0.0
+- file_type: systemVerilogSource
+  name: src/u337mg046_ece337_flex_sr_1.0.0/source/flex_sr.sv
+  core: u337mg046:ece337:flex_sr:1.0.0
+- file_type: user
+  name: src/u337mg164_ece337_synfiles_0/synth.tcl
+  core: u337mg164:ece337:synfiles:0
+- file_type: tclSource
+  name: src/u337mg164_ece337_synfiles_0/detect-reset-logic.tcl
+  core: u337mg164:ece337:synfiles:0
+- file_type: systemVerilogSource
+  name: src/u337mg164_ece337_tx_fsm_1.0.0/source/tx_fsm.sv
+  core: u337mg164:ece337:tx_fsm:1.0.0
+- file_type: systemVerilogSource
+  name: src/u337mg164_ece337_usb_tx_1.0.0/source/usb_tx.sv
+  core: u337mg164:ece337:usb_tx:1.0.0
+- file_type: tclSource
+  name: src/u337mg164_ece337_usb_tx_1.0.0/scripts/syn_usb_tx.tcl
+  core: u337mg164:ece337:usb_tx:1.0.0
+hooks: {}
+name: u337mg164_ece337_usb_tx_1.0.0
+parameters: {}
+tool_options:
+  design_compiler:
+    script_dir: src/u337mg164_ece337_synfiles_0
+    dc_script: synth.tcl
+    report_dir: reports
+    target_library: /home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db
+    libs: /home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db dw_foundation.sldb
+toplevel: usb_tx
+vpi: []
+flow_options: {}
