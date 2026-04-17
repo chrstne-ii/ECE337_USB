@@ -20,6 +20,7 @@ module ahb_subordinate #(
     output logic [7:0] tx_data;
     output logic [31:0] hrdata;
 );
+
     logic [7:0] reg8, regC, regD;
     logic [15:0] reg4, reg6;
     logic [31:0] buffer, next_hrdata, cur_hrdata;
@@ -33,6 +34,9 @@ module ahb_subordinate #(
 
     logic in, out, ack, data0, data1;
 
+    hready_read_fsm read_fsm(.*);
+    hready_read_fsm write_fsm(.*);
+    
     assign hrdata = cur_hrdata;
     assign dmode = !rx_transfer_active && tx_transfer_active;
     assign hresp = cur_hresp;
@@ -137,12 +141,12 @@ module ahb_subordinate #(
         next_hrdata = hrdata;
 
         //RAW 
-        if(!hwrite && prev_hwrite && haddr == prev_haddr && !hresp && !prev_hresp && hsel) begin
+        if(!hwrite && prev_hwrite && haddr == prev_haddr && !hresp && !prev_hresp && hsel && hready) begin
             next_hrdata = hwdata;
         end
         //end of RAW
 
-        else if(haddr < 4'h4 && hr_avail) begin
+        else if(haddr < 4'h4 && hr_avail && hready) begin
             next_hrdata = buffer;
         end
 
