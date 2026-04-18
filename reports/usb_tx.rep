@@ -7,7 +7,7 @@ Report : timing
         -max_paths 1
 Design : usb_tx
 Version: W-2024.09-SP4
-Date   : Fri Apr 17 16:31:37 2026
+Date   : Sat Apr 18 14:16:22 2026
 ****************************************
 
 Operating Conditions: typical   Library: osu05_stdcells
@@ -41,7 +41,7 @@ Wire Load Model Mode: top
 Report : area
 Design : usb_tx
 Version: W-2024.09-SP4
-Date   : Fri Apr 17 16:31:37 2026
+Date   : Sat Apr 18 14:16:22 2026
 ****************************************
 
 Library(s) Used:
@@ -49,8 +49,8 @@ Library(s) Used:
     osu05_stdcells (File: /home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db)
 
 Number of ports:                          123
-Number of nets:                           448
-Number of cells:                          347
+Number of nets:                           447
+Number of cells:                          345
 Number of combinational cells:            289
 Number of sequential cells:                25
 Number of macros/black boxes:               0
@@ -77,7 +77,7 @@ Report : power
         -analysis_effort low
 Design : usb_tx
 Version: W-2024.09-SP4
-Date   : Fri Apr 17 16:31:38 2026
+Date   : Sat Apr 18 14:16:22 2026
 ****************************************
 
 
@@ -104,10 +104,10 @@ Attributes
 i - Including register clock pin internal power
 
 
-  Cell Internal Power  =   4.3017 mW   (76%)
-  Net Switching Power  =   1.3548 mW   (24%)
+  Cell Internal Power  =   4.3204 mW   (76%)
+  Net Switching Power  =   1.3786 mW   (24%)
                          ---------
-Total Dynamic Power    =   5.6564 mW  (100%)
+Total Dynamic Power    =   5.6990 mW  (100%)
 
 Cell Leakage Power     =  32.9219 nW
 
@@ -121,8 +121,8 @@ memory             0.0000            0.0000            0.0000            0.0000 
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
 clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)  i
 register           0.0000            0.0000            0.0000            0.0000  (   0.00%)
-sequential         3.0315        2.0829e-02           13.3244            3.0523  (  53.96%)
-combinational      1.2702            1.3340           19.5974            2.6041  (  46.04%)
+sequential         3.0377        2.1557e-02           13.3244            3.0593  (  53.68%)
+combinational      1.2827            1.3570           19.5974            2.6398  (  46.32%)
 --------------------------------------------------------------------------------------------------
-Total              4.3017 mW         1.3548 mW        32.9219 nW         5.6565 mW
+Total              4.3204 mW         1.3786 mW        32.9219 nW         5.6991 mW
 1

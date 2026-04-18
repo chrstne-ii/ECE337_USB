@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////
 // Created by: Synopsys DC Expert(TM) in wire load mode
 // Version   : W-2024.09-SP4
-// Date      : Fri Apr 17 16:31:38 2026
+// Date      : Sat Apr 18 14:16:22 2026
 /////////////////////////////////////////////////////////////
 
 
@@ -405,9 +405,9 @@ module usb_tx ( clk, n_rst, tx_packet, buffer_occupancy, tx_packet_data,
   input [7:0] tx_packet_data;
   input clk, n_rst;
   output tx_transfer_active, tx_error, get_tx_packet_data, dp_out, dm_out;
-  wire   idle, clear, first, end_packet, rollover_8, rollover_25, load_enable,
-         serial_out, n22, n23, n24, n25, n26, n27, n28, n29, n30, n31, n32,
-         n33, n34, n35, n36, n37, n38, n39, n40, n41;
+  wire   idle, clear, first, end_packet, enable_timer, rollover_8, rollover_25,
+         load_enable, serial_out, n22, n23, n24, n25, n26, n27, n28, n29, n30,
+         n31, n32, n33, n34, n35, n36, n37, n38, n39, n40, n41;
   wire   [7:0] packet;
   wire   [4:0] clk_count;
 
@@ -416,15 +416,15 @@ module usb_tx ( clk, n_rst, tx_packet, buffer_occupancy, tx_packet_data,
   tx_fsm fsm ( .clk(clk), .n_rst(n_rst), .rollover_8(rollover_8), .tx_packet(
         tx_packet), .buffer_occupancy(buffer_occupancy), .pid_packet({
         tx_packet[0], tx_packet[1], tx_packet[2], tx_packet[3], n41, n40, n39, 
-        n38}), .tx_packet_data(tx_packet_data), .bit_clk(n37), 
-        .tx_transfer_active(tx_transfer_active), .end_packet(end_packet), 
-        .get_tx_packet_data(get_tx_packet_data), .first(first), .clear(clear), 
-        .tx_error(tx_error), .idle(idle), .packet(packet) );
+        n38}), .tx_packet_data(tx_packet_data), .bit_clk(n37), .enable_timer(
+        enable_timer), .tx_transfer_active(tx_transfer_active), .end_packet(
+        end_packet), .get_tx_packet_data(get_tx_packet_data), .first(first), 
+        .clear(clear), .tx_error(tx_error), .idle(idle), .packet(packet) );
   flex_counter_SIZE5 data_period ( .clk(clk), .n_rst(n_rst), .clear(clear), 
-        .count_enable(1'b0), .rollover_val({1'b1, 1'b1, 1'b0, 1'b0, 1'b1}), 
-        .count_out(clk_count), .rollover_flag(rollover_25) );
+        .count_enable(enable_timer), .rollover_val({1'b1, 1'b1, 1'b0, 1'b0, 
+        1'b1}), .count_out(clk_count), .rollover_flag(rollover_25) );
   flex_counter_SIZE4 byte_counter ( .clk(clk), .n_rst(n_rst), .clear(clear), 
-        .count_enable(1'b0), .rollover_val({1'b1, 1'b0, 1'b0, 1'b0}), 
+        .count_enable(rollover_25), .rollover_val({1'b1, 1'b0, 1'b0, 1'b0}), 
         .rollover_flag(rollover_8) );
   flex_sr_SIZE8_MSB_FIRST1 load_sr ( .clk(clk), .n_rst(n_rst), .shift_enable(
         n37), .load_enable(load_enable), .serial_in(1'b0), .parallel_in(packet), .serial_out(serial_out) );

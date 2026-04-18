@@ -1,0 +1,175 @@
+m255
+K4
+z2
+!s99 nomlopt
+!s11f vlog 2021.4 2021.10, Oct 13 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/ecegridfs/a/337mg046/ece337/ECE337_USB/tmp/build/u337mg164_ece337_usb_tx_1.0.0/sim-modelsim
+T_opt
+!s110 1776537036
+VXCFDCnLfm^CE6FU[dkDz43
+04 9 4 work tb_usb_tx fast 0
+=1-84160c706d91-69e3cdcc-55670-2df07e
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work work +acc
+Z1 tCvgOpt 0
+n@_opt
+OL;O;2021.4;73
+vflex_counter
+Z2 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+!s110 1776537032
+!i10b 1
+!s100 jY@3Rz8a@n2D]_Q4hIoQg1
+IhDJH:_n?AWe7^@NYW:N7O0
+S1
+R0
+Z3 w1776458117
+8src/u337mg046_ece337_flex_counter_1.0.0/source/flex_counter.sv
+Fsrc/u337mg046_ece337_flex_counter_1.0.0/source/flex_counter.sv
+!i122 0
+Z4 L0 3 50
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+Z6 OL;L;2021.4;73
+r1
+!s85 0
+31
+Z7 !s108 1776537032.000000
+!s107 src/u337mg046_ece337_flex_counter_1.0.0/source/flex_counter.sv|
+!s90 +cover|-sv|-quiet|-work|work|src/u337mg046_ece337_flex_counter_1.0.0/source/flex_counter.sv|
+!i113 0
+Z8 !s102 +cover
+Z9 o-quiet +cover -sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vflex_sr
+R2
+Z10 !s110 1776537033
+!i10b 1
+!s100 <3C?L=KT^DJP@QF5Sd9[O0
+IX?::Rca3@JMW=A9bdfd1=2
+S1
+R0
+R3
+8src/u337mg046_ece337_flex_sr_1.0.0/source/flex_sr.sv
+Fsrc/u337mg046_ece337_flex_sr_1.0.0/source/flex_sr.sv
+!i122 1
+R4
+R5
+R6
+r1
+!s85 0
+31
+R7
+!s107 src/u337mg046_ece337_flex_sr_1.0.0/source/flex_sr.sv|
+!s90 +cover|-sv|-quiet|-work|work|src/u337mg046_ece337_flex_sr_1.0.0/source/flex_sr.sv|
+!i113 0
+R8
+R9
+R1
+vtb_usb_tx
+R2
+R10
+!i10b 1
+!s100 ;nWYQNF5]?@caNgV7gNm?0
+Ic>3U2Xn;F=dSVC]m5W8c]3
+S1
+R0
+w1776536310
+8src/u337mg164_ece337_usb_tx_1.0.0/testbench/tb_usb_tx.sv
+Fsrc/u337mg164_ece337_usb_tx_1.0.0/testbench/tb_usb_tx.sv
+!i122 4
+L0 4 90
+R5
+R6
+r1
+!s85 0
+31
+Z11 !s108 1776537033.000000
+!s107 src/u337mg164_ece337_usb_tx_1.0.0/testbench/tb_usb_tx.sv|
+!s90 +cover|-sv|-quiet|-work|work|src/u337mg164_ece337_usb_tx_1.0.0/testbench/tb_usb_tx.sv|
+!i113 0
+R8
+R9
+R1
+vtx_fsm
+R2
+DXx4 work 14 tx_fsm_sv_unit 0 22 bZ40@4`>lfmcRZd7_I5ZT2
+R10
+R5
+r1
+!s85 0
+!i10b 1
+!s100 n15j8JDM5;CMUG;4moKNV0
+IA^mXLPOG0:21XEg4:TNC^3
+!s105 tx_fsm_sv_unit
+S1
+R0
+R3
+Z12 8src/u337mg164_ece337_tx_fsm_1.0.0/source/tx_fsm.sv
+Z13 Fsrc/u337mg164_ece337_tx_fsm_1.0.0/source/tx_fsm.sv
+!i122 2
+L0 14 173
+R6
+31
+R11
+Z14 !s107 src/u337mg164_ece337_tx_fsm_1.0.0/source/tx_fsm.sv|
+Z15 !s90 +cover|-sv|-quiet|-work|work|src/u337mg164_ece337_tx_fsm_1.0.0/source/tx_fsm.sv|
+!i113 0
+R8
+R9
+R1
+Xtx_fsm_sv_unit
+R2
+R10
+VbZ40@4`>lfmcRZd7_I5ZT2
+r1
+!s85 0
+!i10b 1
+!s100 `M^@:1USTX2klY;A^VGAj1
+IbZ40@4`>lfmcRZd7_I5ZT2
+!i103 1
+S1
+R0
+R3
+R12
+R13
+!i122 2
+L0 3 0
+R6
+31
+R11
+R14
+R15
+!i113 0
+R8
+R9
+R1
+vusb_tx
+R2
+R10
+!i10b 1
+!s100 lnjHonCJJjIlXdj]?a@M60
+I6iF9B]]kHX6RBi:TOof;I0
+S1
+R0
+w1776536924
+8src/u337mg164_ece337_usb_tx_1.0.0/source/usb_tx.sv
+Fsrc/u337mg164_ece337_usb_tx_1.0.0/source/usb_tx.sv
+!i122 3
+L0 3 76
+R5
+R6
+r1
+!s85 0
+31
+R11
+!s107 src/u337mg164_ece337_usb_tx_1.0.0/source/usb_tx.sv|
+!s90 +cover|-sv|-quiet|-work|work|src/u337mg164_ece337_usb_tx_1.0.0/source/usb_tx.sv|
+!i113 0
+R8
+R9
+R1

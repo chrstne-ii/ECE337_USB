@@ -32,19 +32,19 @@ Please use '-no_save' simv switch to avoid this.
                         https://solvnetplus.synopsys.com)
 Initializing...
 Initializing gui preferences from file  /home/ecegridfs/a/337mg046/.synopsys_dc_gui/preferences.tcl
-Current time:       Sat Apr 18 08:59:05 2026
+Current time:       Sat Apr 18 14:16:19 2026
 Hostname:           ececomp5.ecn.purdue.edu
 CPU Model:          AMD EPYC 7513 32-Core Processor
-CPU Details:        Cores = 128 : Sockets = 2 : Cache Size = 512 KB : Freq = 3.34 GHz
+CPU Details:        Cores = 128 : Sockets = 2 : Cache Size = 512 KB : Freq = 3.66 GHz
 OS:                 Linux 5.15.0-318.199.3.2.el8uek.x86_64
-RAM:                502 GB (Free  74 GB)
+RAM:                502 GB (Free  71 GB)
 Swap:                63 GB (Free  63 GB)
 Work Filesystem:    /home/ecegridfs/a mounted to ecegridfs.ecn.purdue.edu:/export/home/a
 Tmp Filesystem:     /tmp mounted to tmpfs
-Work Disk:          2968 GB (Free 321 GB)
+Work Disk:          2968 GB (Free 347 GB)
 Tmp Disk:            17 GB (Free  16 GB)
 
-CPU Load: 3%, Ram Free: 74 GB, Swap Free: 63 GB, Work Disk Free: 321 GB, Tmp Disk Free: 16 GB
+CPU Load: 19%, Ram Free: 71 GB, Swap Free: 63 GB, Work Disk Free: 347 GB, Tmp Disk Free: 16 GB
 ############################################
 #
 # Auto-generated project tcl file:
@@ -53,13 +53,13 @@ CPU Load: 3%, Ram Free: 74 GB, Swap Free: 63 GB, Work Disk Free: 321 GB, Tmp Dis
 #
 ############################################
 sh date
-Sat Apr 18 08:59:05 EDT 2026
-set TOP_MODULE data_buffer
-data_buffer
+Sat Apr 18 14:16:19 EDT 2026
+set TOP_MODULE usb_tx
+usb_tx
 set DC_SCRIPT synth.tcl
 synth.tcl
-set READ_SOURCES u337mg164_ece337_data_buffer_1.0.0-read-sources
-u337mg164_ece337_data_buffer_1.0.0-read-sources
+set READ_SOURCES u337mg164_ece337_usb_tx_1.0.0-read-sources
+u337mg164_ece337_usb_tx_1.0.0-read-sources
 set SCRIPT_DIR src/u337mg164_ece337_synfiles_0
 src/u337mg164_ece337_synfiles_0
 set REPORT_DIR reports
@@ -76,34 +76,106 @@ set link_library   [concat "*"  /home/ecegrid/a/ece337/summer24-refactor/tech/am
 ############################################
 source ${SCRIPT_DIR}/${DC_SCRIPT}
 Running PRESTO HDLC
-Compiling source file ./src/u337mg164_ece337_data_buffer_1.0.0/source/data_buffer.sv
-Warning:  ./src/u337mg164_ece337_data_buffer_1.0.0/source/data_buffer.sv:69: The value 64 is too large for the numeric data type being used (VER-1)
-Warning:  ./src/u337mg164_ece337_data_buffer_1.0.0/source/data_buffer.sv:70: The value 64 is too large for the numeric data type being used (VER-1)
+Compiling source file ./src/u337mg046_ece337_flex_counter_1.0.0/source/flex_counter.sv
 Presto compilation completed successfully.
 Loading db file '/home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db'
 Loading db file '/package/eda/synopsys/syn/W-2024.09-SP4/libraries/syn/dw_foundation.sldb'
+Running PRESTO HDLC
+Compiling source file ./src/u337mg046_ece337_flex_sr_1.0.0/source/flex_sr.sv
+Presto compilation completed successfully.
+Running PRESTO HDLC
+Compiling source file ./src/u337mg164_ece337_tx_fsm_1.0.0/source/tx_fsm.sv
+Presto compilation completed successfully.
+Running PRESTO HDLC
+Compiling source file ./src/u337mg164_ece337_usb_tx_1.0.0/source/usb_tx.sv
+Presto compilation completed successfully.
 Loading db file '/package/eda/synopsys/syn/W-2024.09-SP4/libraries/syn/gtech.db'
 Loading db file '/package/eda/synopsys/syn/W-2024.09-SP4/libraries/syn/standard.sldb'
   Loading link library 'osu05_stdcells'
   Loading link library 'gtech'
 Running PRESTO HDLC
 
-Inferred memory devices in process in routine 'data_buffer' in file
-	 ./src/u337mg164_ece337_data_buffer_1.0.0/source/data_buffer.sv'.
+Inferred memory devices in process in routine 'usb_tx' in file
+	 ./src/u337mg164_ece337_usb_tx_1.0.0/source/usb_tx.sv'.
 ==================================================================================
 |    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
 ==================================================================================
-|   write_index_reg   | Flip-flop |   6   |  Y  | N  | None  | Async | N  |  29  |
-|      fifo_reg       | Flip-flop |  512  |  Y  | N  | None  | Async | N  |  56  |
-|   read_index_reg    | Flip-flop |   6   |  Y  | N  | None  | Async | N  |  77  |
+|     dp_out_reg      | Flip-flop |   1   |  N  | N  | Async | None  | N  |  67  |
+|     dm_out_reg      | Flip-flop |   1   |  N  | N  | None  | Async | N  |  67  |
 ==================================================================================
-Presto compilation completed successfully. (data_buffer)
-Module: data_buffer, Ports: 47, Input: 24, Output: 23, Inout: 0
-Module: data_buffer, Registers: 524, Async set/reset: 524, Sync set/reset: 0
-Information: Module data_buffer report end. (ELAB-965)
+Presto compilation completed successfully. (usb_tx)
+Module: usb_tx, Ports: 26, Input: 21, Output: 5, Inout: 0
+Module: usb_tx, Registers: 2, Async set/reset: 2, Sync set/reset: 0
+Information: Module usb_tx report end. (ELAB-965)
 Elaborated 1 design.
-Current design is now 'data_buffer'.
-CPU Load: 3%, Ram Free: 74 GB, Swap Free: 63 GB, Work Disk Free: 321 GB, Tmp Disk Free: 16 GB
+Current design is now 'usb_tx'.
+Information: Building the design 'tx_fsm'. (HDL-193)
+
+Statistics for case statements in always block in file
+	'./src/u337mg164_ece337_tx_fsm_1.0.0/source/tx_fsm.sv'
+============================================================
+|    Line    |  full/ parallel  |      block location      |
+============================================================
+|     38     |    auto/auto     | always block at line 36  |
+|    112     |    auto/auto     | always block at line 102 |
+============================================================
+
+Inferred memory devices in process in routine 'tx_fsm' in file
+	 ./src/u337mg164_ece337_tx_fsm_1.0.0/source/tx_fsm.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|      state_reg      | Flip-flop |   6   |  Y  | N  | None  | Async | N  |  27  |
+==================================================================================
+Presto compilation completed successfully. (tx_fsm)
+Module: tx_fsm, Ports: 47, Input: 31, Output: 16, Inout: 0
+Module: tx_fsm, Registers: 6, Async set/reset: 6, Sync set/reset: 0
+Information: Module tx_fsm report end. (ELAB-965)
+Information: Building the design 'flex_counter' instantiated from design 'usb_tx' with
+	the parameters "SIZE=5". (HDL-193)
+
+Inferred memory devices in process in routine 'flex_counter_SIZE5' in file
+	 ./src/u337mg046_ece337_flex_counter_1.0.0/source/flex_counter.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|    count_out_reg    | Flip-flop |   5   |  Y  | N  | None  | Async | N  |  18  |
+|  rollover_flag_reg  | Flip-flop |   1   |  N  | N  | None  | Async | N  |  18  |
+==================================================================================
+Presto compilation completed successfully. (flex_counter_SIZE5)
+Module: flex_counter_SIZE5, Ports: 15, Input: 9, Output: 6, Inout: 0
+Module: flex_counter_SIZE5, Registers: 6, Async set/reset: 6, Sync set/reset: 0
+Information: Module flex_counter_SIZE5 report end. (ELAB-965)
+Information: Building the design 'flex_counter' instantiated from design 'usb_tx' with
+	the parameters "SIZE=4". (HDL-193)
+
+Inferred memory devices in process in routine 'flex_counter_SIZE4' in file
+	 ./src/u337mg046_ece337_flex_counter_1.0.0/source/flex_counter.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|    count_out_reg    | Flip-flop |   4   |  Y  | N  | None  | Async | N  |  18  |
+|  rollover_flag_reg  | Flip-flop |   1   |  N  | N  | None  | Async | N  |  18  |
+==================================================================================
+Presto compilation completed successfully. (flex_counter_SIZE4)
+Module: flex_counter_SIZE4, Ports: 13, Input: 8, Output: 5, Inout: 0
+Module: flex_counter_SIZE4, Registers: 5, Async set/reset: 5, Sync set/reset: 0
+Information: Module flex_counter_SIZE4 report end. (ELAB-965)
+Information: Building the design 'flex_sr' instantiated from design 'usb_tx' with
+	the parameters "SIZE=8,MSB_FIRST=1". (HDL-193)
+
+Inferred memory devices in process in routine 'flex_sr_SIZE8_MSB_FIRST1' in file
+	 ./src/u337mg046_ece337_flex_sr_1.0.0/source/flex_sr.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|  parallel_out_reg   | Flip-flop |   8   |  Y  | N  | Async | None  | N  |  19  |
+==================================================================================
+Presto compilation completed successfully. (flex_sr_SIZE8_MSB_FIRST1)
+Module: flex_sr_SIZE8_MSB_FIRST1, Ports: 22, Input: 13, Output: 9, Inout: 0
+Module: flex_sr_SIZE8_MSB_FIRST1, Registers: 8, Async set/reset: 8, Sync set/reset: 0
+Information: Module flex_sr_SIZE8_MSB_FIRST1 report end. (ELAB-965)
+CPU Load: 19%, Ram Free: 71 GB, Swap Free: 63 GB, Work Disk Free: 347 GB, Tmp Disk Free: 16 GB
 Information: Checking out the license 'DesignWare'. (SEC-104)
 Information: Evaluating DesignWare library utilization. (UISN-27)
 
@@ -122,29 +194,29 @@ Information: Evaluating DesignWare library utilization. (UISN-27)
 | Design Information                                      | Value                                  |
 ====================================================================================================
 | Number of Scenarios                                     | 0                                      |
-| Leaf Cell Count                                         | 916                                    |
-| Number of User Hierarchies                              | 0                                      |
-| Sequential Cell Count                                   | 524                                    |
+| Leaf Cell Count                                         | 385                                    |
+| Number of User Hierarchies                              | 4                                      |
+| Sequential Cell Count                                   | 27                                     |
 | Macro Count                                             | 0                                      |
 | Pad Count                                               | 0                                      |
 | Number of Power Domains                                 | 0                                      |
 | Number of Path Groups                                   | 1                                      |
 | Number of VT Class                                      | 0                                      |
 | Number of Clocks                                        | 0                                      |
-| Number of Dont Touch Cells                              | 179                                    |
+| Number of Dont Touch Cells                              | 135                                    |
 | Number of Dont Touch Nets                               | 0                                      |
 | Number of Size Only Cells                               | 0                                      |
 | Design with Target Library Subset (with clock_path)     | false  (false )                        |
 | Design with UPF Data                                    | false                                  |
 ====================================================================================================
 
-Information: There are 4 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+Information: There are 22 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
 
 
 
   Beginning Pass 1 Mapping
   ------------------------
-  Processing 'data_buffer'
+  Processing 'flex_sr_SIZE8_MSB_FIRST1'
 Module: DW01_MUX, Ports: 4, Input: 3, Output: 1, Inout: 0
 Module: DW01_MUX, Registers: 0, Async set/reset: 0, Sync set/reset: 0
 Module: DW01_mmux_width2, Ports: 7, Input: 5, Output: 2, Inout: 0
@@ -155,70 +227,111 @@ Module: DW01_mmux_width4, Ports: 13, Input: 9, Output: 4, Inout: 0
 Module: DW01_mmux_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
 Module: DW01_mmux_width5, Ports: 16, Input: 11, Output: 5, Inout: 0
 Module: DW01_mmux_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_inc_width6, Ports: 12, Input: 6, Output: 6, Inout: 0
-Module: DW01_inc_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_NAND2, Ports: 3, Input: 2, Output: 1, Inout: 0
-Module: DW01_NAND2, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_sub_width7, Ports: 23, Input: 15, Output: 8, Inout: 0
-Module: DW01_sub_width7, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_inc_width7, Ports: 14, Input: 7, Output: 7, Inout: 0
-Module: DW01_inc_width7, Registers: 0, Async set/reset: 0, Sync set/reset: 0
 Module: DW01_NOT, Ports: 2, Input: 1, Output: 1, Inout: 0
 Module: DW01_NOT, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_cmp6_width7, Ports: 21, Input: 15, Output: 6, Inout: 0
-Module: DW01_cmp6_width7, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_cmp6_width6, Ports: 19, Input: 13, Output: 6, Inout: 0
-Module: DW01_cmp6_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_add_width6, Ports: 20, Input: 13, Output: 7, Inout: 0
-Module: DW01_add_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'flex_counter_SIZE4'
+Module: DW01_inc_width4, Ports: 8, Input: 4, Output: 4, Inout: 0
+Module: DW01_inc_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_NAND2, Ports: 3, Input: 2, Output: 1, Inout: 0
+Module: DW01_NAND2, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_dec_width5, Ports: 10, Input: 5, Output: 5, Inout: 0
+Module: DW01_dec_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_cmp6_width4, Ports: 15, Input: 9, Output: 6, Inout: 0
+Module: DW01_cmp6_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_cmp6_width32, Ports: 71, Input: 65, Output: 6, Inout: 0
+Module: DW01_cmp6_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_sub_width5, Ports: 17, Input: 11, Output: 6, Inout: 0
+Module: DW01_sub_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_incdec_width5, Ports: 11, Input: 6, Output: 5, Inout: 0
+Module: DW01_incdec_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_add_width4, Ports: 14, Input: 9, Output: 5, Inout: 0
+Module: DW01_add_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_incdec_width4, Ports: 9, Input: 5, Output: 4, Inout: 0
+Module: DW01_incdec_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW02_mult_A_width4_B_width1, Ports: 11, Input: 6, Output: 5, Inout: 0
+Module: DW02_mult_A_width4_B_width1, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_absval_width4, Ports: 8, Input: 4, Output: 4, Inout: 0
+Module: DW01_absval_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_inc_width4, Ports: 8, Input: 4, Output: 4, Inout: 0
+Module: DW01_inc_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_absval_width1, Ports: 2, Input: 1, Output: 1, Inout: 0
+Module: DW01_absval_width1, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_inc_width1, Ports: 2, Input: 1, Output: 1, Inout: 0
+Module: DW01_inc_width1, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_inc_width5, Ports: 10, Input: 5, Output: 5, Inout: 0
+Module: DW01_inc_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW02_mult_A_width1_B_width4, Ports: 11, Input: 6, Output: 5, Inout: 0
+Module: DW02_mult_A_width1_B_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Information: Added key list 'DesignWare' to design 'flex_counter_SIZE4'. (DDB-72)
+  Processing 'flex_counter_SIZE5'
+Module: DW01_inc_width5, Ports: 10, Input: 5, Output: 5, Inout: 0
+Module: DW01_inc_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_dec_width6, Ports: 12, Input: 6, Output: 6, Inout: 0
+Module: DW01_dec_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_cmp6_width5, Ports: 17, Input: 11, Output: 6, Inout: 0
+Module: DW01_cmp6_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_sub_width6, Ports: 20, Input: 13, Output: 7, Inout: 0
+Module: DW01_sub_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
 Module: DW01_incdec_width6, Ports: 13, Input: 7, Output: 6, Inout: 0
 Module: DW01_incdec_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_cmp2_width7, Ports: 18, Input: 16, Output: 2, Inout: 0
-Module: DW01_cmp2_width7, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_add_width7, Ports: 23, Input: 15, Output: 8, Inout: 0
-Module: DW01_add_width7, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_incdec_width7, Ports: 15, Input: 8, Output: 7, Inout: 0
-Module: DW01_incdec_width7, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_add_width5, Ports: 17, Input: 11, Output: 6, Inout: 0
+Module: DW01_add_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW02_mult_A_width5_B_width1, Ports: 13, Input: 7, Output: 6, Inout: 0
+Module: DW02_mult_A_width5_B_width1, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_absval_width5, Ports: 10, Input: 5, Output: 5, Inout: 0
+Module: DW01_absval_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_inc_width6, Ports: 12, Input: 6, Output: 6, Inout: 0
+Module: DW01_inc_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW02_mult_A_width1_B_width5, Ports: 13, Input: 7, Output: 6, Inout: 0
+Module: DW02_mult_A_width1_B_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Information: Added key list 'DesignWare' to design 'flex_counter_SIZE5'. (DDB-72)
+  Processing 'tx_fsm'
+Information: The register 'state_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'state_reg[4]' is a constant and will be removed. (OPT-1206)
+  Processing 'usb_tx'
 
   Updating timing information
 Information: Updating design information... (UID-85)
-Information: Design 'data_buffer' has no optimization constraints set. (OPT-108)
+Information: Design 'usb_tx' has no optimization constraints set. (OPT-108)
 
   Beginning Implementation Selection
   ----------------------------------
-  Processing 'data_buffer_DW01_inc_0'
-  Processing 'data_buffer_DW01_inc_1'
-  Processing 'data_buffer_DW01_cmp2_0'
-  Processing 'data_buffer_DW01_sub_0'
-  Processing 'data_buffer_DW01_inc_2'
-  Processing 'data_buffer_DW01_sub_1'
-  Processing 'data_buffer_DW01_sub_2'
-  Processing 'data_buffer_DW01_cmp6_0'
+  Processing 'flex_counter_SIZE4_DW01_dec_0'
+  Mapping 'flex_counter_SIZE4_DW_mult_uns_0'
+  Processing 'flex_counter_SIZE5_DW01_dec_0_DW01_dec_1'
+  Processing 'flex_counter_SIZE5_DW01_inc_0_DW01_inc_3'
+  Mapping 'flex_counter_SIZE5_DW_mult_uns_0'
+  Processing 'flex_counter_SIZE5_DW01_cmp6_0_DW01_cmp6_1'
 
   Beginning Mapping Optimizations  (Medium effort)
   -------------------------------
-  Structuring 'data_buffer'
-  Mapping 'data_buffer'
+  Structuring 'flex_sr_SIZE8_MSB_FIRST1'
+  Mapping 'flex_sr_SIZE8_MSB_FIRST1'
+  Structuring 'flex_counter_SIZE4'
+  Mapping 'flex_counter_SIZE4'
+  Structuring 'flex_counter_SIZE5'
+  Mapping 'flex_counter_SIZE5'
+  Structuring 'tx_fsm'
+  Mapping 'tx_fsm'
+  Structuring 'usb_tx'
+  Mapping 'usb_tx'
 
                                   TOTAL                                      
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:03 1335969.0      0.00       0.0    1826.5                          
-    0:00:03 1335969.0      0.00       0.0    1826.5                          
-    0:00:03 1335969.0      0.00       0.0    1826.5                          
-    0:00:03 1335969.0      0.00       0.0    1826.5                          
-    0:00:03 1335969.0      0.00       0.0    1826.5                          
-    0:00:03 1335969.0      0.00       0.0    1826.5                          
-    0:00:03 1335969.0      0.00       0.0    1826.5                          
-    0:00:03 1335969.0      0.00       0.0    1826.5                          
-    0:00:03 1335969.0      0.00       0.0    1826.5                          
-    0:00:03 1336761.0      0.00       0.0    1622.6                          
-    0:00:03 1337481.0      0.00       0.0    1525.0                          
-    0:00:03 1337841.0      0.00       0.0    1476.9                          
-    0:00:03 1337841.0      0.00       0.0    1476.9                          
-    0:00:03 1337841.0      0.00       0.0    1476.9                          
-    0:00:03 1337841.0      0.00       0.0    1476.9                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
 
 
 
@@ -229,22 +342,11 @@ Information: Design 'data_buffer' has no optimization constraints set. (OPT-108)
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:03 1337841.0      0.00       0.0    1476.9                          
-    0:00:03 1337841.0      0.00       0.0    1476.9                          
-    0:00:03 1337841.0      0.00       0.0    1476.9                          
-    0:00:03 1337841.0      0.00       0.0    1476.9                          
-    0:00:03 1337841.0      0.00       0.0    1476.9                          
-
-
-  Beginning Design Rule Fixing  (max_capacitance)
-  ----------------------------
-
-                                  TOTAL                                      
-   ELAPSED            WORST NEG   SETUP    DESIGN                            
-    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
-  --------- --------- --------- --------- --------- -------------------------
-    0:00:03 1337841.0      0.00       0.0    1476.9                          
-    0:00:03 1343601.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
 
 
   Beginning Area-Recovery Phase  (cleanup)
@@ -254,17 +356,17 @@ Information: Design 'data_buffer' has no optimization constraints set. (OPT-108)
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:03 1343601.0      0.00       0.0       0.0                          
-    0:00:03 1343601.0      0.00       0.0       0.0                          
-    0:00:03 1341585.0      0.00       0.0       0.0                          
-    0:00:03 1341585.0      0.00       0.0       0.0                          
-    0:00:03 1341585.0      0.00       0.0       0.0                          
-    0:00:03 1341585.0      0.00       0.0       0.0                          
-    0:00:03 1341585.0      0.00       0.0       0.0                          
-    0:00:03 1341585.0      0.00       0.0       0.0                          
-    0:00:03 1341585.0      0.00       0.0       0.0                          
-    0:00:03 1341585.0      0.00       0.0       0.0                          
-    0:00:03 1341585.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
+    0:00:03  110484.0      0.00       0.0       0.0                          
 Loading db file '/home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db'
 
 
@@ -273,7 +375,7 @@ Note: Symbol # after min delay cost means estimated hold TNS across all active s
 
   Optimization Complete
   ---------------------
-CPU Load: 3%, Ram Free: 73 GB, Swap Free: 63 GB, Work Disk Free: 321 GB, Tmp Disk Free: 16 GB
+CPU Load: 18%, Ram Free: 71 GB, Swap Free: 63 GB, Work Disk Free: 347 GB, Tmp Disk Free: 16 GB
 Information: Total number of MV cells in the design.
 ----------------------------------------------------------------------------------------------------
  MV Cells                                           Total Number                                   
@@ -297,48 +399,59 @@ Unmapped MV Cells
 ****************************************
 check_design summary:
 Version:     W-2024.09-SP4
-Date:        Sat Apr 18 08:59:09 2026
+Date:        Sat Apr 18 14:16:22 2026
 ****************************************
 
                    Name                                            Total
 --------------------------------------------------------------------------------
-Inputs/Outputs                                                      8
-    Unconnected ports (LINT-28)                                     8
+Inputs/Outputs                                                      1
+    Shorted outputs (LINT-31)                                       1
 
-Cells                                                               8
-    Connected to power or ground (LINT-32)                          6
-    Nets connected to multiple pins on same cell (LINT-33)          2
+Cells                                                              17
+    Connected to power or ground (LINT-32)                         10
+    Nets connected to multiple pins on same cell (LINT-33)          7
 --------------------------------------------------------------------------------
 
-Warning: In design 'data_buffer_DW01_sub_0', port 'A[6]' is not connected to any nets. (LINT-28)
-Warning: In design 'data_buffer_DW01_sub_0', port 'B[6]' is not connected to any nets. (LINT-28)
-Warning: In design 'data_buffer_DW01_sub_0', port 'CI' is not connected to any nets. (LINT-28)
-Warning: In design 'data_buffer_DW01_sub_0', port 'CO' is not connected to any nets. (LINT-28)
-Warning: In design 'data_buffer_DW01_sub_2', port 'A[6]' is not connected to any nets. (LINT-28)
-Warning: In design 'data_buffer_DW01_sub_2', port 'B[6]' is not connected to any nets. (LINT-28)
-Warning: In design 'data_buffer_DW01_sub_2', port 'CI' is not connected to any nets. (LINT-28)
-Warning: In design 'data_buffer_DW01_sub_2', port 'CO' is not connected to any nets. (LINT-28)
-Warning: In design 'data_buffer', a pin on submodule 'sub_106' is connected to logic 1 or logic 0. (LINT-32)
-   Pin 'A[6]' is connected to logic 0. 
-Warning: In design 'data_buffer', a pin on submodule 'sub_106' is connected to logic 1 or logic 0. (LINT-32)
-   Pin 'B[6]' is connected to logic 0. 
-Warning: In design 'data_buffer', a pin on submodule 'sub_106' is connected to logic 1 or logic 0. (LINT-32)
-   Pin 'CI' is connected to logic 0. 
-Warning: In design 'data_buffer', a pin on submodule 'sub_103' is connected to logic 1 or logic 0. (LINT-32)
-   Pin 'A[6]' is connected to logic 0. 
-Warning: In design 'data_buffer', a pin on submodule 'sub_103' is connected to logic 1 or logic 0. (LINT-32)
-   Pin 'B[6]' is connected to logic 0. 
-Warning: In design 'data_buffer', a pin on submodule 'sub_103' is connected to logic 1 or logic 0. (LINT-32)
-   Pin 'CI' is connected to logic 0. 
-Warning: In design 'data_buffer', the same net is connected to more than one pin on submodule 'sub_106'. (LINT-33)
-   Net 'n2' is connected to pins 'A[6]', 'B[6]'', 'CI'.
-Warning: In design 'data_buffer', the same net is connected to more than one pin on submodule 'sub_103'. (LINT-33)
-   Net 'n4' is connected to pins 'A[6]', 'B[6]'', 'CI'.
-Writing verilog file '/home/ecegridfs/a/337mg046/ece337/ECE337_USB/tmp/build/u337mg164_ece337_data_buffer_1.0.0/syn-design_compiler/data_buffer.v'.
+Warning: In design 'flex_sr_SIZE8_MSB_FIRST1', output port 'serial_out' is connected directly to output port 'parallel_out[7]'. (LINT-31)
+Warning: In design 'usb_tx', a pin on submodule 'data_period' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[4]' is connected to logic 1. 
+Warning: In design 'usb_tx', a pin on submodule 'data_period' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[3]' is connected to logic 1. 
+Warning: In design 'usb_tx', a pin on submodule 'data_period' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[2]' is connected to logic 0. 
+Warning: In design 'usb_tx', a pin on submodule 'data_period' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[1]' is connected to logic 0. 
+Warning: In design 'usb_tx', a pin on submodule 'data_period' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[0]' is connected to logic 1. 
+Warning: In design 'usb_tx', a pin on submodule 'byte_counter' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[3]' is connected to logic 1. 
+Warning: In design 'usb_tx', a pin on submodule 'byte_counter' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[2]' is connected to logic 0. 
+Warning: In design 'usb_tx', a pin on submodule 'byte_counter' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[1]' is connected to logic 0. 
+Warning: In design 'usb_tx', a pin on submodule 'byte_counter' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[0]' is connected to logic 0. 
+Warning: In design 'usb_tx', a pin on submodule 'load_sr' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'serial_in' is connected to logic 0. 
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'fsm'. (LINT-33)
+   Net 'tx_packet[3]' is connected to pins 'tx_packet[3]', 'pid_packet[4]''.
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'fsm'. (LINT-33)
+   Net 'tx_packet[2]' is connected to pins 'tx_packet[2]', 'pid_packet[5]''.
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'fsm'. (LINT-33)
+   Net 'tx_packet[1]' is connected to pins 'tx_packet[1]', 'pid_packet[6]''.
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'fsm'. (LINT-33)
+   Net 'tx_packet[0]' is connected to pins 'tx_packet[0]', 'pid_packet[7]''.
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'data_period'. (LINT-33)
+   Net '*Logic1*' is connected to pins 'rollover_val[4]', 'rollover_val[3]'', 'rollover_val[0]'.
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'data_period'. (LINT-33)
+   Net '*Logic0*' is connected to pins 'rollover_val[2]', 'rollover_val[1]''.
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'byte_counter'. (LINT-33)
+   Net '*Logic0*' is connected to pins 'rollover_val[2]', 'rollover_val[1]'', 'rollover_val[0]'.
+Writing verilog file '/home/ecegridfs/a/337mg046/ece337/ECE337_USB/tmp/build/u337mg164_ece337_usb_tx_1.0.0/syn-design_compiler/usb_tx.v'.
 
-Memory usage for this session 177 Mbytes.
-Memory usage for this session including child processes 177 Mbytes.
-CPU usage for this session 6 seconds ( 0.00 hours ).
-Elapsed time for this session 7 seconds ( 0.00 hours ).
+Memory usage for this session 150 Mbytes.
+Memory usage for this session including child processes 150 Mbytes.
+CPU usage for this session 4 seconds ( 0.00 hours ).
+Elapsed time for this session 6 seconds ( 0.00 hours ).
 
 Thank you...
