@@ -31,7 +31,7 @@ module usb_tx #(
     
     tx_fsm fsm(.*);
 
-    flex_counter #(.SIZE(5)) data_period(.clk(clk), .n_rst(n_rst), .clear(clear), .rollover_val(5'd25), .count_out(clk_count), .rollover_flag(rollover_25));
+    flex_counter #(.SIZE(5)) data_period(.clk(clk), .n_rst(n_rst), .clear(clear), .count_enable(enable_timer), .rollover_val(5'd25), .count_out(clk_count), .rollover_flag(rollover_25));
 
     always_comb begin : BIT_CLK_LOGIC
         bit_clk = 1'b0;
@@ -40,7 +40,7 @@ module usb_tx #(
         end
     end
 
-    flex_counter #(.SIZE(4)) byte_counter(.clk(clk), .n_rst(n_rst), .clear(clear), .rollover_val(4'd8), .rollover_flag(rollover_8));
+    flex_counter #(.SIZE(4)) byte_counter(.clk(clk), .n_rst(n_rst), .clear(clear), .count_enable(rollover_25), .rollover_val(4'd8), .rollover_flag(rollover_8));
 
     assign load_enable = rollover_8 | first;
 
