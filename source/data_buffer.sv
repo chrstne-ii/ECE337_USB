@@ -49,7 +49,9 @@ module data_buffer #(
             next_fifo = '0;
         end 
         if (buffer_occupancy < 64) begin
-            next_fifo[write_index * 8 +: 8] = fifo_in;
+            if (get_rx_data||get_tx_packet_data) begin
+                next_fifo[write_index * 8 +: 8] = fifo_in;
+            end
         end
     end
 
