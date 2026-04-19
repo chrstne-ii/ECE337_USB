@@ -3,6 +3,7 @@
 module flex_sr #(
     parameter SIZE = 8,
     parameter MSB_FIRST = 0
+    parameter PRIORITY = 0
 )(
     input logic clk,
     input logic n_rst,
@@ -27,15 +28,30 @@ module flex_sr #(
 
     always_comb begin
         n_parallel = parallel_out;
-        if (load_enable) begin
-            n_parallel = parallel_in;
-        end
-        if (shift_enable) begin
-            if(MSB_FIRST) begin
-                n_parallel = {parallel_out[SIZE-2:0], serial_in};
+        if (PRIORITY) begin
+            if (load_enable) begin
+                n_parallel = parallel_in;
             end
-            else begin
-                n_parallel = {serial_in, parallel_out[SIZE-1:1]};
+            if (shift_enable) begin
+                if(MSB_FIRST) begin
+                    n_parallel = {parallel_out[SIZE-2:0], serial_in};
+                end
+                else begin
+                    n_parallel = {serial_in, parallel_out[SIZE-1:1]};
+                end
+            end
+        end
+        else begin
+            if (load_enable) begin
+                n_parallel = parallel_in;
+            end
+            if (shift_enable) begin
+                if(MSB_FIRST) begin
+                    n_parallel = {parallel_out[SIZE-2:0], serial_in};
+                end
+                else begin
+                    n_parallel = {serial_in, parallel_out[SIZE-1:1]};
+                end
             end
         end
     end
