@@ -79,7 +79,7 @@ module tb_usb_tx ();
             repeat (75) @(negedge clk); //LOAD DATA + STORE DATA
             buffer_occupancy--;
         end
-        /*buffer_occupancy = 0;
+        buffer_occupancy = 0;
         @(negedge clk) //STATE: STORE CRC1 
         repeat (75) @(negedge clk); //STATE: LOAD CRC1 
         @(negedge clk); //STATE: STORE CRC2
@@ -88,7 +88,7 @@ module tb_usb_tx ();
         repeat (75) @(negedge clk); //LOAD EOP 1
         repeat (8) @(negedge clk); //LOAD EOP 2
         repeat(8) @(negedge clk) //RESET
-        @(negedge clk) //IDLE */
+        @(negedge clk) //IDLE 
         
 
         $finish;
