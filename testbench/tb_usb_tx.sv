@@ -65,7 +65,7 @@ module tb_usb_tx ();
         buffer_occupancy = 12;
         @(negedge clk) //STATE: STORE SYNC
         @(negedge clk) //STATE: LOAD SYNC
-        @(negedge clk) //STATE: STORE PID
+        @(negedge clk) //STATE: STORE PID 
         tx_packet = 4'b0;
         repeat (75) @(negedge clk); //STATE: LOAD_PID
 
