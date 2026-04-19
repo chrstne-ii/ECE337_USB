@@ -70,14 +70,18 @@ module tx_fsm #(
                 if (rollover_8) begin
                     next_state = LOAD_CRC1;
                 end
-            LOAD_CRC1:
+            LOAD_CRC1: 
+                if (!rollover_8) begin
                     next_state = STORE_CRC2;
+                end
             STORE_CRC2:
                 if (rollover_8) begin
                     next_state = LOAD_CRC2;
                 end
             LOAD_CRC2: 
-                next_state = STORE_EOP;
+                if (!rollover_8) begin
+                    next_state = STORE_EOP;
+                end
             STORE_EOP:
                 if (rollover_8) begin
                     next_state = LOAD_EOP1;
