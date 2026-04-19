@@ -7,13 +7,13 @@ Report : timing
         -max_paths 1
 Design : data_buffer
 Version: W-2024.09-SP4
-Date   : Sat Apr 18 08:59:09 2026
+Date   : Sun Apr 19 07:51:58 2026
 ****************************************
 
 Operating Conditions: typical   Library: osu05_stdcells
 Wire Load Model Mode: top
 
-  Startpoint: write_index_reg[0]
+  Startpoint: read_index_reg[0]
               (rising edge-triggered flip-flop)
   Endpoint: tx_packet_data[7]
             (output port)
@@ -22,31 +22,32 @@ Wire Load Model Mode: top
 
   Point                                                   Incr       Path
   --------------------------------------------------------------------------
-  write_index_reg[0]/CLK (DFFSR)                          0.00       0.00 r
-  write_index_reg[0]/Q (DFFSR)                            1.29       1.29 f
-  sub_103/B[0] (data_buffer_DW01_sub_2)                   0.00       1.29 f
-  sub_103/U5/Y (INVX2)                                    0.31       1.60 r
-  sub_103/U2/Y (OR2X1)                                    0.39       1.99 r
-  sub_103/U2_1/YC (FAX1)                                  0.38       2.37 r
-  sub_103/U2_2/YC (FAX1)                                  0.38       2.75 r
-  sub_103/U2_3/YC (FAX1)                                  0.38       3.13 r
-  sub_103/U2_4/YC (FAX1)                                  0.38       3.51 r
-  sub_103/U2_5/YS (FAX1)                                  0.41       3.92 r
-  sub_103/DIFF[5] (data_buffer_DW01_sub_2)                0.00       3.92 r
-  U4244/Y (INVX1)                                         0.24       4.16 f
-  U4242/Y (NAND3X1)                                       0.23       4.39 r
-  U4240/Y (NOR2X1)                                        0.27       4.65 f
-  U4239/Y (XOR2X1)                                        0.27       4.93 f
-  add_0_root_add_103/A[6] (data_buffer_DW01_inc_2)        0.00       4.93 f
-  add_0_root_add_103/U2/Y (XOR2X1)                        0.22       5.14 f
-  add_0_root_add_103/SUM[6] (data_buffer_DW01_inc_2)      0.00       5.14 f
-  U4198/Y (AOI22X1)                                       0.20       5.34 r
-  U2887/Y (NAND3X1)                                       0.07       5.41 f
-  U2885/Y (OR2X1)                                         0.24       5.64 f
-  U2476/Y (NAND3X1)                                       0.53       6.17 r
-  U2468/Y (NOR2X1)                                        0.14       6.32 f
-  tx_packet_data[7] (out)                                 0.00       6.32 f
-  data arrival time                                                  6.32
+  read_index_reg[0]/CLK (DFFSR)                           0.00       0.00 r
+  read_index_reg[0]/Q (DFFSR)                             1.17       1.17 f
+  U4241/Y (INVX1)                                         0.56       1.73 r
+  U2478/Y (INVX2)                                         0.29       2.02 f
+  sub_105/A[0] (data_buffer_DW01_sub_2)                   0.00       2.02 f
+  sub_105/U2/Y (OR2X2)                                    0.27       2.29 f
+  sub_105/U2_1/YC (FAX1)                                  0.42       2.70 f
+  sub_105/U2_2/YC (FAX1)                                  0.46       3.16 f
+  sub_105/U2_3/YC (FAX1)                                  0.46       3.62 f
+  sub_105/U2_4/YC (FAX1)                                  0.46       4.08 f
+  sub_105/U2_5/YS (FAX1)                                  0.54       4.61 r
+  sub_105/DIFF[5] (data_buffer_DW01_sub_2)                0.00       4.61 r
+  U4259/Y (INVX1)                                         0.13       4.74 f
+  U4258/Y (NAND3X1)                                       0.17       4.91 r
+  U4255/Y (NOR2X1)                                        0.26       5.18 f
+  U4254/Y (XOR2X1)                                        0.27       5.45 f
+  add_0_root_add_105/A[6] (data_buffer_DW01_inc_2)        0.00       5.45 f
+  add_0_root_add_105/U2/Y (XOR2X1)                        0.22       5.66 f
+  add_0_root_add_105/SUM[6] (data_buffer_DW01_inc_2)      0.00       5.66 f
+  U4212/Y (AOI22X1)                                       0.24       5.91 r
+  U2903/Y (NAND3X1)                                       0.06       5.97 f
+  U2901/Y (OR2X1)                                         0.24       6.20 f
+  U2492/Y (NAND3X1)                                       0.53       6.74 r
+  U2484/Y (NOR2X1)                                        0.14       6.88 f
+  tx_packet_data[7] (out)                                 0.00       6.88 f
+  data arrival time                                                  6.88
   --------------------------------------------------------------------------
   (Path is unconstrained)
 
@@ -57,29 +58,29 @@ Wire Load Model Mode: top
 Report : area
 Design : data_buffer
 Version: W-2024.09-SP4
-Date   : Sat Apr 18 08:59:09 2026
+Date   : Sun Apr 19 07:51:58 2026
 ****************************************
 
 Library(s) Used:
 
     osu05_stdcells (File: /home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db)
 
-Number of ports:                          107
-Number of nets:                          3004
-Number of cells:                         2916
-Number of combinational cells:           1863
-Number of sequential cells:               524
+Number of ports:                          135
+Number of nets:                          3065
+Number of cells:                         2937
+Number of combinational cells:           1878
+Number of sequential cells:               526
 Number of macros/black boxes:               0
-Number of buf/inv:                        602
-Number of references:                      22
+Number of buf/inv:                        601
+Number of references:                      24
 
-Combinational area:             511569.000000
-Buf/Inv area:                    90144.000000
-Noncombinational area:          830016.000000
+Combinational area:             521208.000000
+Buf/Inv area:                    90000.000000
+Noncombinational area:          833184.000000
 Macro/Black Box area:                0.000000
 Net Interconnect area:      undefined  (No wire load specified)
 
-Total cell area:               1341585.000000
+Total cell area:               1354392.000000
 Total area:                 undefined
 1
 Loading db file '/home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db'
@@ -93,7 +94,7 @@ Report : power
         -analysis_effort low
 Design : data_buffer
 Version: W-2024.09-SP4
-Date   : Sat Apr 18 08:59:09 2026
+Date   : Sun Apr 19 07:51:59 2026
 ****************************************
 
 
@@ -120,12 +121,12 @@ Attributes
 i - Including register clock pin internal power
 
 
-  Cell Internal Power  =  71.5149 mW   (55%)
-  Net Switching Power  =  59.4566 mW   (45%)
+  Cell Internal Power  =  74.0336 mW   (51%)
+  Net Switching Power  =  71.5454 mW   (49%)
                          ---------
-Total Dynamic Power    = 130.9715 mW  (100%)
+Total Dynamic Power    = 145.5790 mW  (100%)
 
-Cell Leakage Power     = 411.0617 nW
+Cell Leakage Power     = 415.7172 nW
 
 Information: report_power power group summary does not include estimated clock tree power. (PWR-789)
 
@@ -137,8 +138,8 @@ memory             0.0000            0.0000            0.0000            0.0000 
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
 clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)  i
 register           0.0000            0.0000            0.0000            0.0000  (   0.00%)
-sequential        56.4419            0.2335          279.2805           56.6757  (  43.27%)
-combinational     15.0726           59.2231          131.7813           74.2961  (  56.73%)
+sequential        56.8461            0.2500          280.3464           57.0963  (  39.22%)
+combinational     17.1872           71.2955          135.3708           88.4829  (  60.78%)
 --------------------------------------------------------------------------------------------------
-Total             71.5146 mW        59.4566 mW       411.0617 nW       130.9718 mW
+Total             74.0333 mW        71.5455 mW       415.7172 nW       145.5792 mW
 1
