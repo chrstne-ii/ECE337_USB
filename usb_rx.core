@@ -8,7 +8,7 @@ filesets:
             - "source/usb_rx.sv"
         file_type: systemVerilogSource
         depend:
-            - "u337mg164:ece337:sync:0"
+            - "u337mg164:ece337:sync"
             - "u337mg046:ece337:flex_sr:1.0.0"
             - "u337mg046:ece337:flex_counter:1.0.0"
 
