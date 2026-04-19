@@ -56,8 +56,20 @@ module tb_usb_rx ();
     logic [2:0] rx_packet;
     logic rx_transfer_active, rx_data_ready, rx_error, store_rx_packet_data, flush;
 
-    usb_rx DUT (.clk(clk), .n_rst(n_rst), .dp_in(dp_in), .dm_in(dm_in), .buffer_occ(buffer_occ), .rx_packet(rx_packet), .rx_packet_data(rx_packet_data),
-                .rx_data_ready(rx_data_ready), .rx_error(rx_error), .rx_transfer_active(rx_transfer_active), .store_rx_packet_data(store_rx_packet_data), .flush(flush));
+    usb_rx DUT (
+        .clk(clk), 
+        .n_rst(n_rst), 
+        .dp_in(dp_in), 
+        .dm_in(dm_in), 
+        .buffer_occ(buffer_occ), 
+        .rx_packet(rx_packet), 
+        .rx_packet_data(rx_packet_data),
+        .rx_data_ready(rx_data_ready), 
+        .rx_error(rx_error), 
+        .rx_transfer_active(rx_transfer_active), 
+        .store_rx_packet_data(store_rx_packet_data), 
+        .flush(flush)
+    );
 
     initial begin
         n_rst = 1;
