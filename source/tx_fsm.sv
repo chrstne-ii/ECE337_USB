@@ -152,6 +152,7 @@ module tx_fsm #(
             LOAD_CRC1: begin
                 enable_timer = 1'b1;
                 tx_transfer_active = 1'b1;
+                packet = 8'b0;
             end
             STORE_CRC2: begin
                 enable_timer = 1'b1;
@@ -161,6 +162,7 @@ module tx_fsm #(
             LOAD_CRC2: begin
                 enable_timer = 1'b1;
                 tx_transfer_active = 1'b1;
+                packet = 8'b0;
             end
             STORE_EOP: begin
                 enable_timer = 1'b1;
