@@ -2,7 +2,7 @@
 
 module flex_sr #(
     parameter SIZE = 8,
-    parameter MSB_FIRST = 0
+    parameter MSB_FIRST = 0,
     parameter PRIORITY = 0
 )(
     input logic clk,
