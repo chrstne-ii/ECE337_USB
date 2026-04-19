@@ -51,7 +51,7 @@ module tx_fsm #(
                     next_state = LOAD_PID;
                 end
             LOAD_PID: 
-                if (tx_packet == DATA0 || tx_packet == DATA1) begin
+                if ((tx_packet == DATA0 || tx_packet == DATA1) & !rollover_8) begin
                     next_state = STORE_DATA;
                 end else if ((tx_packet == ACK) || (tx_packet == NAK) || (tx_packet == STALL)) begin
                     next_state = STORE_EOP;
@@ -63,7 +63,7 @@ module tx_fsm #(
                     next_state = STORE_CRC1; 
                 end
             LOAD_DATA:
-                if (buffer_occupancy != 0) begin
+                if (buffer_occupancy != 0 && !rollover_8) begin
                     next_state = STORE_DATA;
                 end
             STORE_CRC1:
@@ -71,12 +71,15 @@ module tx_fsm #(
                     next_state = LOAD_CRC1;
                 end
             LOAD_CRC1:
-                next_state = STORE_CRC2;
+                if (!rollover_8) begin
+                    next_state = STORE_CRC2;
+                end
             STORE_CRC2:
                 if (rollover_8) begin
                     next_state = LOAD_CRC2;
                 end
-            LOAD_CRC2:
+            LOAD_CRC2: 
+                if (!rollover_8)
                 next_state = STORE_EOP;
             STORE_EOP:
                 if (rollover_8) begin
