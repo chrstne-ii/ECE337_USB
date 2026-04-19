@@ -22,6 +22,7 @@ module tb_usb_tx ();
     logic [6:0] buffer_occupancy;
     logic [7:0] tx_packet_data;
     string test;
+    integer i;
 
 
     // clockgen
