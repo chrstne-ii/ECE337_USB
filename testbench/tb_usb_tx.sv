@@ -75,7 +75,10 @@ module tb_usb_tx ();
         @(negedge clk); //STATE: STORE DATA
         
         test = "test output";
-        repeat (75) @(negedge clk); //LOAD DATA + STORE DATA
+        for (i = buffer_occupancy; i >= 0; i--) begin
+            repeat (75) @(negedge clk); //LOAD DATA + STORE DATA
+            buffer_occupancy--;
+        end
         /*buffer_occupancy = 0;
         @(negedge clk) //STATE: STORE CRC1 
         repeat (75) @(negedge clk); //STATE: LOAD CRC1 
