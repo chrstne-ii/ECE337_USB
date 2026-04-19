@@ -38,9 +38,61 @@ module tb_data_buffer ();
     data_buffer #() DUT (.*);
 
     initial begin
+        store_rx_packet_data = 0;
+        store_tx_data = 0;
+        clear = 0;
+        flush = 0;
+        rx_packet_data = 8'b00001111;
+        tx_data = 8'b11110000;
+        get_rx_data = 0;
+        get_tx_packet_data = 0;
         n_rst = 1;
 
         reset_dut;
+
+        //push rx data
+        store_rx_packet_data = 1;
+        @(negedge clk);
+        @(negedge clk);
+        store_rx_packet_data = 0;
+        @(negedge clk);
+
+        //push tx data
+        store_tx_data = 1;
+        @(negedge clk);
+        store_tx_data = 0;
+        @(negedge clk)
+
+        //pop rx data
+        get_rx_data = 1;
+        @(negedge clk);
+        get_rx_data = 0;
+
+        //pop tx data
+        get_tx_packet_data = 1;
+        @(negedge clk);
+        get_tx_packet_data = 0;
+
+        //hold fifo
+        @(negedge clk);
+
+        //clear fifo
+        store_rx_packet_data = 1;
+        repeat (10) @(negedge clk) //load data in
+        store_rx_packet_data = 1;
+        @(negedge clk);
+        store_rx_packet_data = 0;
+        clear = 1;
+        @(negedge clk);
+        clear = 0;
+
+        //flush fifo
+        store_tx_data = 1;
+        repeat (10) @(negedge clk) //load data in
+        store_tx_data = 0;
+        flush = 1;
+        @(negedge clk);
+
 
         $finish;
     end

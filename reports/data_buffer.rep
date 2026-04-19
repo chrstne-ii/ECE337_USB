@@ -1,0 +1,145 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : data_buffer
+Version: W-2024.09-SP4
+Date   : Sun Apr 19 07:51:58 2026
+****************************************
+
+Operating Conditions: typical   Library: osu05_stdcells
+Wire Load Model Mode: top
+
+  Startpoint: read_index_reg[0]
+              (rising edge-triggered flip-flop)
+  Endpoint: tx_packet_data[7]
+            (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  read_index_reg[0]/CLK (DFFSR)                           0.00       0.00 r
+  read_index_reg[0]/Q (DFFSR)                             1.17       1.17 f
+  U4241/Y (INVX1)                                         0.56       1.73 r
+  U2478/Y (INVX2)                                         0.29       2.02 f
+  sub_105/A[0] (data_buffer_DW01_sub_2)                   0.00       2.02 f
+  sub_105/U2/Y (OR2X2)                                    0.27       2.29 f
+  sub_105/U2_1/YC (FAX1)                                  0.42       2.70 f
+  sub_105/U2_2/YC (FAX1)                                  0.46       3.16 f
+  sub_105/U2_3/YC (FAX1)                                  0.46       3.62 f
+  sub_105/U2_4/YC (FAX1)                                  0.46       4.08 f
+  sub_105/U2_5/YS (FAX1)                                  0.54       4.61 r
+  sub_105/DIFF[5] (data_buffer_DW01_sub_2)                0.00       4.61 r
+  U4259/Y (INVX1)                                         0.13       4.74 f
+  U4258/Y (NAND3X1)                                       0.17       4.91 r
+  U4255/Y (NOR2X1)                                        0.26       5.18 f
+  U4254/Y (XOR2X1)                                        0.27       5.45 f
+  add_0_root_add_105/A[6] (data_buffer_DW01_inc_2)        0.00       5.45 f
+  add_0_root_add_105/U2/Y (XOR2X1)                        0.22       5.66 f
+  add_0_root_add_105/SUM[6] (data_buffer_DW01_inc_2)      0.00       5.66 f
+  U4212/Y (AOI22X1)                                       0.24       5.91 r
+  U2903/Y (NAND3X1)                                       0.06       5.97 f
+  U2901/Y (OR2X1)                                         0.24       6.20 f
+  U2492/Y (NAND3X1)                                       0.53       6.74 r
+  U2484/Y (NOR2X1)                                        0.14       6.88 f
+  tx_packet_data[7] (out)                                 0.00       6.88 f
+  data arrival time                                                  6.88
+  --------------------------------------------------------------------------
+  (Path is unconstrained)
+
+
+1
+ 
+****************************************
+Report : area
+Design : data_buffer
+Version: W-2024.09-SP4
+Date   : Sun Apr 19 07:51:58 2026
+****************************************
+
+Library(s) Used:
+
+    osu05_stdcells (File: /home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db)
+
+Number of ports:                          135
+Number of nets:                          3065
+Number of cells:                         2937
+Number of combinational cells:           1878
+Number of sequential cells:               526
+Number of macros/black boxes:               0
+Number of buf/inv:                        601
+Number of references:                      24
+
+Combinational area:             521208.000000
+Buf/Inv area:                    90000.000000
+Noncombinational area:          833184.000000
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (No wire load specified)
+
+Total cell area:               1354392.000000
+Total area:                 undefined
+1
+Loading db file '/home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db'
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: There is no defined clock in the design. (PWR-80)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : data_buffer
+Version: W-2024.09-SP4
+Date   : Sun Apr 19 07:51:59 2026
+****************************************
+
+
+Library(s) Used:
+
+    osu05_stdcells (File: /home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db)
+
+
+Operating Conditions: typical   Library: osu05_stdcells
+Wire Load Model Mode: top
+
+
+Global Operating Voltage = 5    
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+Attributes
+----------
+i - Including register clock pin internal power
+
+
+  Cell Internal Power  =  74.0336 mW   (51%)
+  Net Switching Power  =  71.5454 mW   (49%)
+                         ---------
+Total Dynamic Power    = 145.5790 mW  (100%)
+
+Cell Leakage Power     = 415.7172 nW
+
+Information: report_power power group summary does not include estimated clock tree power. (PWR-789)
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)  i
+register           0.0000            0.0000            0.0000            0.0000  (   0.00%)
+sequential        56.8461            0.2500          280.3464           57.0963  (  39.22%)
+combinational     17.1872           71.2955          135.3708           88.4829  (  60.78%)
+--------------------------------------------------------------------------------------------------
+Total             74.0333 mW        71.5455 mW       415.7172 nW       145.5792 mW
+1

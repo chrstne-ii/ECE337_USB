@@ -7,8 +7,11 @@ filesets:
         files:
             - "source/usb.sv"
         file_type: systemVerilogSource
-        # depend:
-        #     - "fusesoc:core:name"
+        depend:
+            - "u337mg164:ece337:ahb_subordinate:1.0.0"
+            - "u337mg164:ece337:usb_rx:1.0.0"
+            - "u337mg164:ece337:usb_tx:1.0.0"
+            - "u337mg164:ece337:data_buffer:1.0.0"
 
     synth:
         depend:

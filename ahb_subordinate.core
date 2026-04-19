@@ -7,8 +7,9 @@ filesets:
         files:
             - "source/ahb_subordinate.sv"
         file_type: systemVerilogSource
-        # depend:
-        #     - "fusesoc:core:name"
+        depend:
+            - "u337mg164:ece337:hready_read_fsm:1.0.0"
+            - "u337mg164:ece337:hready_write_fsm:1.0.0"
 
     synth:
         depend:
@@ -26,6 +27,7 @@ filesets:
         file_type: systemVerilogSource
         depend:
             - "u337mg164:ece337:questafiles"
+            - "ece337:course-lib:ahb_model_updated"
 
     synfiles:
         files:

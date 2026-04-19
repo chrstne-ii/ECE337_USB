@@ -40,7 +40,7 @@ module tx_fsm #(
                 if (((tx_packet == DATA0||tx_packet == DATA1) && (buffer_occupancy != 0)) || ((tx_packet == ACK)|(tx_packet == NAK)|(tx_packet == STALL))) begin
                     next_state = STORE_SYNC;
                 end else if (((tx_packet == DATA0||tx_packet == DATA1) && (buffer_occupancy == 0))) begin
-                    next_state = IDLE;
+                    next_state = ERROR;
                 end
             STORE_SYNC: 
                 next_state = LOAD_SYNC;
@@ -51,9 +51,9 @@ module tx_fsm #(
                     next_state = LOAD_PID;
                 end
             LOAD_PID: 
-                if (tx_packet == DATA0 || tx_packet == DATA1) begin
+                if ((tx_packet == DATA0 || tx_packet == DATA1) && !rollover_8) begin
                     next_state = STORE_DATA;
-                end else if ((tx_packet == ACK) || (tx_packet == NAK) || (tx_packet == STALL)) begin
+                end else if (((tx_packet == ACK) || (tx_packet == NAK) || (tx_packet == STALL)) && !rollover_8) begin
                     next_state = STORE_EOP;
                 end
             STORE_DATA:
@@ -63,21 +63,25 @@ module tx_fsm #(
                     next_state = STORE_CRC1; 
                 end
             LOAD_DATA:
-                if (buffer_occupancy != 0) begin
+                if (buffer_occupancy != 0 && !rollover_8) begin
                     next_state = STORE_DATA;
                 end
             STORE_CRC1:
                 if (rollover_8) begin
                     next_state = LOAD_CRC1;
                 end
-            LOAD_CRC1:
-                next_state = STORE_CRC2;
+            LOAD_CRC1: 
+                if (!rollover_8) begin
+                    next_state = STORE_CRC2;
+                end
             STORE_CRC2:
                 if (rollover_8) begin
                     next_state = LOAD_CRC2;
                 end
-            LOAD_CRC2:
-                next_state = STORE_EOP;
+            LOAD_CRC2: 
+                if (!rollover_8) begin
+                    next_state = STORE_EOP;
+                end
             STORE_EOP:
                 if (rollover_8) begin
                     next_state = LOAD_EOP1;
@@ -116,11 +120,12 @@ module tx_fsm #(
             STORE_SYNC: begin
                 tx_transfer_active = 1'b1;
                 packet = 8'b1;
+                first = 1'b1;
             end
             LOAD_SYNC: begin
                 enable_timer = 1'b1;
                 tx_transfer_active = 1'b1;
-                first = 1'b1;
+                //first = 1'b1;
             end
             STORE_PID: begin
                 enable_timer = 1'b1;
@@ -130,6 +135,7 @@ module tx_fsm #(
             LOAD_PID: begin
                 enable_timer = 1'b1;
                 tx_transfer_active = 1'b1;
+                packet = pid_packet;
             end
             STORE_DATA: begin
                 get_tx_packet_data = 1'b1;
@@ -140,6 +146,7 @@ module tx_fsm #(
             LOAD_DATA: begin
                 enable_timer = 1'b1;
                 tx_transfer_active = 1'b1;
+                packet = tx_packet_data;
             end
             STORE_CRC1: begin
                 enable_timer = 1'b1;
@@ -149,6 +156,7 @@ module tx_fsm #(
             LOAD_CRC1: begin
                 enable_timer = 1'b1;
                 tx_transfer_active = 1'b1;
+                packet = 8'b0;
             end
             STORE_CRC2: begin
                 enable_timer = 1'b1;
@@ -158,6 +166,7 @@ module tx_fsm #(
             LOAD_CRC2: begin
                 enable_timer = 1'b1;
                 tx_transfer_active = 1'b1;
+                packet = 8'b0;
             end
             STORE_EOP: begin
                 enable_timer = 1'b1;
