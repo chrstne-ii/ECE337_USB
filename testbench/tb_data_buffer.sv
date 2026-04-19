@@ -43,7 +43,7 @@ module tb_data_buffer ();
         clear = 0;
         flush = 0;
         rx_packet_data = 8'b00001111;
-        tx_packet_data = 8'b11110000;
+        tx_data = 8'b11110000;
         get_rx_data = 0;
         get_tx_packet_data = 0;
         n_rst = 1;
@@ -66,7 +66,7 @@ module tb_data_buffer ();
         get_rx_data = 0;
 
         //pop tx data
-        get_tx_packet_data = 1
+        get_tx_packet_data = 1;
         @(negedge clk);
         get_tx_packet_data = 0;
 
