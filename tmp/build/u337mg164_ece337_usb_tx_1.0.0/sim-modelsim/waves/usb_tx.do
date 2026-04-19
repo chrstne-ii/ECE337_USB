@@ -20,7 +20,7 @@ add wave -noupdate /tb_usb_tx/DUT/load_enable
 add wave -noupdate /tb_usb_tx/DUT/pid_packet
 add wave -noupdate -radix binary /tb_usb_tx/DUT/load_sr/parallel_out
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {1459509 ps} 0}
+WaveRestoreCursors {{Cursor 1} {802363 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100
