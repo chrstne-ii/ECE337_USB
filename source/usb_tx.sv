@@ -44,7 +44,7 @@ module usb_tx #(
 
     assign load_enable = rollover_8 | first;
 
-    flex_sr #(.SIZE(8), .MSB_FIRST(1)) load_sr(.clk(clk), .n_rst(n_rst), .shift_enable(bit_clk), 
+    flex_sr #(.SIZE(8), .MSB_FIRST(1), .PRIORITY(1)) load_sr(.clk(clk), .n_rst(n_rst), .shift_enable(bit_clk), 
               .load_enable(load_enable), .serial_in(1'b0), .parallel_in(packet), .serial_out(serial_out));
 
     always_comb begin : NEXT_DP_LOGIC
