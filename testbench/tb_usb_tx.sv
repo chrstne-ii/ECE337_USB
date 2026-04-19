@@ -89,6 +89,21 @@ module tb_usb_tx ();
         repeat (8) @(negedge clk); //LOAD EOP 2
         repeat(8) @(negedge clk) //RESET
         @(negedge clk) //IDLE 
+
+
+        //load STALL
+        test = "load STALL"
+        tx_packet = STALL;
+        @(negedge clk) //STATE: STORE SYNC
+        @(negedge clk) //STATE: LOAD SYNC
+        @(negedge clk) //STATE: STORE PID 
+        repeat (75) @(negedge clk); //STATE: LOAD_PID
+        @(negedge clk); //STORE EOP
+        repeat (75) @(negedge clk); //LOAD EOP 1
+        repeat (8) @(negedge clk); //LOAD EOP 2
+        repeat(8) @(negedge clk) //RESET
+
+
         
 
         $finish;
