@@ -53,7 +53,7 @@ module tx_fsm #(
             LOAD_PID: 
                 if ((tx_packet == DATA0 || tx_packet == DATA1) && !rollover_8) begin
                     next_state = STORE_DATA;
-                end else if ((tx_packet == ACK) || (tx_packet == NAK) || (tx_packet == STALL)) begin
+                end else if (((tx_packet == ACK) || (tx_packet == NAK) || (tx_packet == STALL)) && !rollover_8) begin
                     next_state = STORE_EOP;
                 end
             STORE_DATA:
