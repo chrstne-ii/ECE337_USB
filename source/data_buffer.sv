@@ -16,8 +16,8 @@ module data_buffer #(
     always_comb begin : NEXT_WRITE_LOGIC
         next_write_index = write_index;
         if (store_rx_packet_data||store_tx_data) begin
-            if (write_index == 6'd8) begin
-                next_write_index = 6'd8;
+            if (write_index == 6'd64) begin
+                next_write_index = 6'd64;
             end else begin
                 next_write_index = next_write_index + 1;
             end
@@ -49,7 +49,7 @@ module data_buffer #(
             next_fifo = '0;
         end 
         if (buffer_occupancy < 64) begin
-            if (get_rx_data||get_tx_packet_data) begin
+            if (store_rx_packet_data||store_tx_data) begin
                 next_fifo[write_index * 8 +: 8] = fifo_in;
             end
         end
@@ -58,7 +58,7 @@ module data_buffer #(
     always_ff @(posedge clk, negedge n_rst) begin : FIFO
         if (!n_rst) begin
             fifo <= '0;
-        end else begin
+        end else if (store_rx_packet_data||store_tx_data) begin
             fifo <= next_fifo;
         end 
     end
