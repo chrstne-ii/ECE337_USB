@@ -3,14 +3,12 @@ quietly WaveActivateNextPane {} 0
 add wave -noupdate /tb_ahb_subordinate/DUT/clk
 add wave -noupdate /tb_ahb_subordinate/DUT/n_rst
 add wave -noupdate -divider Input
-add wave -noupdate /tb_ahb_subordinate/DUT/hburst
 add wave -noupdate /tb_ahb_subordinate/DUT/haddr
 add wave -noupdate /tb_ahb_subordinate/htrans
 add wave -noupdate /tb_ahb_subordinate/DUT/hsel
 add wave -noupdate /tb_ahb_subordinate/DUT/hwrite
 add wave -noupdate /tb_ahb_subordinate/DUT/hsize
 add wave -noupdate /tb_ahb_subordinate/DUT/hwdata
-add wave -noupdate /tb_ahb_subordinate/test_string
 add wave -noupdate -divider {Module Outputs}
 add wave -noupdate /tb_ahb_subordinate/DUT/tx_transfer_active
 add wave -noupdate /tb_ahb_subordinate/DUT/rx_transfer_active

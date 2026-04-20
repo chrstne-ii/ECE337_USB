@@ -182,9 +182,13 @@ module tb_ahb_subordinate ();
         reset_model();
         reset_dut();
 
-        enqueue_read(3'h1, 1'b0, 31'h00BB);
-        enqueue_write(3'h2, 1'b1, 31'h00BB);
+        enqueue_write(4'h2, 2'b1, 32'h00BB);
+        enqueue_read(4'h1, 2'b0, 32'h00BB);
 
+        execute_transactions(2);
+
+        finish_transactions();
+        
         $finish;
     end
 endmodule

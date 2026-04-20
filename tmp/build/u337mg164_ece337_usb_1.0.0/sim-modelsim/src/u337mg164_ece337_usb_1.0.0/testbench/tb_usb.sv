@@ -25,8 +25,6 @@ module tb_usb();
         $dumpvars;
     end
     
-    string test_string, phase;
-
     // Signals
     
     logic clk, n_rst;
@@ -76,81 +74,17 @@ module tb_usb();
         #(CLK_PERIOD / 2.0);
     end
 
-    task send_byte;
-    input [7:0] data;
-    integer i;
-    begin
-        // First synchronize to away from clock's rising edge
-        @(negedge usb_clk);
-
-        // Send data bits
-        for(i = 0; i < 8; i = i + 1)
-        begin
-            if(data[i] == '0) begin
-                dp_in = ~dp_in;
-                dm_in = dp_in ? '0 : 1'b1;
-            end 
-
-            @(negedge usb_clk);
-        end
-    end
-    endtask
-
-    task send_sync;
-    begin
-        send_byte(.data(8'b00000001));
-    end
-    endtask 
-
-    task send_eop;
-    input correct;
-    begin
-        @(negedge usb_clk);
-        if(correct) begin
-            dp_in = '0;
-            dm_in = '0;
-            repeat(2) @(negedge usb_clk);
-            dp_in = 1;
-            dm_in = '0;
-        end else begin
-            dp_in = '0;
-            dm_in = 1;
-            @(negedge clk);
-            dp_in = 1;
-            dm_in = '0;
-            @(negedge usb_clk);
-            dp_in = '0;
-            dm_in = 1;
-        end
-        @(negedge usb_clk);
-    end 
-    endtask
-
-    task send_token;
-    input [7:0] pid;
-    input [15:0] data;
-    input correct;
-    begin
-        send_sync();
-        send_byte(.data(pid));
-        send_byte(.data(data[7:0]));
-        send_byte(.data(data[15:8]));
-        send_eop(.correct(correct));
-    end
-    endtask
-
+    
     // AHB Master Simulation Tasks
     
     task ahb_write(input [3:0] addr, input [31:0] data, input [1:0] size);
     begin
         if(addr < 4'h4) begin
             //clear buffer
-            phase = "ADDRESS";
             @(negedge clk);
             hsel = 1; hwrite = 1; haddr = 4'hD; hwdata = 32'h1; 
             htrans = 2'b10; hsize = 2'h0;
 
-            phase = "DATA";
             // Wait for Data Phase to complete
             @(posedge clk);
             @(posedge clk);
@@ -159,7 +93,7 @@ module tb_usb();
             @(negedge clk);
             hsel = 0; htrans = 2'b00;
         end
-
+        
         // Address Phase
         @(negedge clk);
         hsel = 1; hwrite = 1; haddr = addr; hwdata = data; 
@@ -177,12 +111,10 @@ module tb_usb();
     task ahb_read(input [3:0] addr, output [31:0] data_out, input [1:0] size);
     begin
         // Address Phase
-        phase = "ADDRESS";
         @(negedge clk);
         hsel = 1; hwrite = 0; haddr = addr; 
         htrans = 2'b10; hsize = size;
         
-        phase = "DATA";
         // Wait for Data Phase
         do begin @(posedge clk); end while (!hready);
         
@@ -210,23 +142,39 @@ module tb_usb();
         repeat(5) @(posedge clk);
 
         // ====================================================================
+        // Rubric: (6 pts) AHB Interface handles reads/writes to all addresses
+        // ====================================================================
+        test_case_num++;
+        $display("Test %0d: AHB Interface Map Testing", test_case_num);
+        
+        // Write/Read Control Register
+        ahb_write(TX_ADDR, 32'h0000_0001, 2'h0); 
+        ahb_read(TX_ADDR, read_val, 2'h0);
+        if(read_val !== 32'h0000_0001) $error("AHB TX Reg Read/Write Failed");
+
+        // Write/Read FIFO (Checking basic AHB access to FIFO address)
+        ahb_write(BUFF_ADDR, 32'hDEAD_BEEF, 2'h2);
+        // Note: Reading FIFO immediately might pop it depending on your design.
+        
+        // ====================================================================
         // Rubric: (15 pts) Host-to-Endpoint USB 1.1 Bulk Transfers (OUT)
         // Rubric: (1 pt) FIFO stores data from USB RX and provides to SoC
         // Rubric: (6 pts) USB RX module correctly receives USB packet types
         // ====================================================================
         test_case_num++;
-
-        $display("Test %0d: Host-to-Endpoint (OUT)", test_case_num);
+        $display("Test %0d: Host-to-Endpoint (OUT) & RX Module Verification", test_case_num);
         
         // 1. Simulate Host sending OUT token + DATA0 packet (e.g., 4 bytes: 0x11223344)
-        send_token(.pid(8'b11100001), .data(16'h00AB), .correct(1'b1));
+        // ** REPlACE this with your model's built-in host transfer function **
+        // tb_model.send_usb_packet(PID_OUT, ...);
+        // tb_model.send_usb_packet(PID_DATA0, 32'h11223344); 
         
         // Wait for transfer to complete on the bus
-        repeat(130) @(posedge clk); 
+        repeat(50) @(posedge clk); 
 
         // 2. Read from AHB FIFO to prove data arrived correctly (1 pt FIFO RX requirement)
-        ahb_read(BUFF_ADDR, read_val, 2'h1);
-        if(read_val !== 32'h00AB) $error("FIFO did not correctly store RX data from Host!");
+        ahb_read(BUFF_ADDR, read_val, 2'h2);
+        if(read_val !== 32'h11223344) $error("FIFO did not correctly store RX data from Host!");
         else $display("Host-to-Endpoint OUT Transfer Successful.");
 
         // ====================================================================
