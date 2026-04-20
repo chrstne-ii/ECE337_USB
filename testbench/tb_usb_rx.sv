@@ -106,7 +106,7 @@ module tb_usb_rx ();
         send_byte(.data(pid));
         send_byte(.data(data[7:0]));
         send_byte(.data(data[15:8]));
-        @(negedge usb_clk);
+        // @(negedge usb_clk);
         send_eop(.correct(correct));
     end
     endtask
@@ -119,6 +119,7 @@ module tb_usb_rx ();
     begin
         integer i;
         send_sync();
+        @(negedge usb_clk);
         send_byte(.data(pid));
         for(i = 0; i < num; i = i + 1) begin
             send_byte(.data(data));
@@ -126,6 +127,7 @@ module tb_usb_rx ();
         //CRC
         send_byte(.data(8'h00));
         send_byte(.data(8'h00));
+        // @(negedge usb_clk);
         send_eop(.correct(correct));
     end
     endtask
@@ -152,6 +154,7 @@ module tb_usb_rx ();
 
         dp_in = '1;
         dm_in = '0;
+        buffer_occ = '0;
         @(negedge usb_clk)
 
         test_name = "Valid IN Packet";
@@ -173,6 +176,7 @@ module tb_usb_rx ();
         test_name = "Valid ACK Packet";
         // valid ACK packet
         send_sync();
+        @(negedge usb_clk);
         send_byte(.data(8'b11010010));
         send_eop(.correct(1'b1));
         test_name = "IDLE Break";

@@ -90,7 +90,7 @@ module usb_rx (
         .clk(clk), .n_rst(n_rst),
         .shift_enable(enable_shift && bits_shift),
         .load_enable('0),
-        .serial_in(pserial_in),
+        .serial_in(synced_p),
         .parallel_in('0),
         /* verilator lint_off PINCONNECTEMPTY */
         .serial_out(),
@@ -101,7 +101,7 @@ module usb_rx (
         .clk(clk), .n_rst(n_rst),
         .shift_enable(enable_shift && bits_shift),
         .load_enable('0),
-        .serial_in(mserial_in),
+        .serial_in(synced_m),
         .parallel_in('0),
         /* verilator lint_off PINCONNECTEMPTY */
         .serial_out(),
