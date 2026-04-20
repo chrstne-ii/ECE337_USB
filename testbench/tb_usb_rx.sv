@@ -108,6 +108,24 @@ module tb_usb_rx ();
     end
     endtask
 
+    task send_data;
+    input [7:0] pid;
+    input [7:0] data;
+    input [6:0] num;
+    input correct;
+    begin
+        integer i;
+        send_sync();
+        send_byte(.data(pid));
+        for(i = 0; i < num; i = i + 1) begin
+            send_byte(.data(data));
+        end
+        //CRC
+        send_byte(.data(16'h0000));
+        send_eop(.correct(correct));
+    end
+    endtask
+
     usb_rx DUT (
         .clk(clk), 
         .n_rst(n_rst), 
@@ -150,6 +168,20 @@ module tb_usb_rx ();
         send_sync();
         send_byte(.data(8'b11010010));
         send_eop(.correct(1'b1));
+
+        dp_in = '1;
+        dm_in = '0;
+        repeat(5) @(negedge usb_clk);
+
+        // valid DATA0 packet
+        send_data(.pid(8'b11000011), .data(8'hF0), .num(7'd3), .correct(1'b1));
+
+        dp_in = '1;
+        dm_in = '0;
+        repeat(5) @(negedge usb_clk);
+
+        // valid DATA1 packet
+        send_data(.pid(8'b01001011), .data(8'hF0), .num(7'd3), .correct(1'b1));
 
         dp_in = '1;
         dm_in = '0;

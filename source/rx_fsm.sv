@@ -28,14 +28,14 @@ module rx_fsm #(
             saved_byte2 <= '0;
         end else begin
             current <= next_state;
-            if(current == SHIFT3 || current == SHIFT4) saved_pid <= byte_in[2:0] + {2'b0, byte_in[3]};
+            if((current == SHIFT2) && byte_done) saved_pid <= byte_in[2:0] + {2'b0, byte_in[3]};
             if(current == ACK) saved_pid <= 3'd5;
-            if(current == TOKEN1 || current == DATA1) saved_byte1 <= byte_in;
-            if(current == SHIFT5) begin
+            if((current == SHIFT3 || current == SHIFT4) && byte_done) saved_byte1 <= byte_in;
+            if((current == SHIFT5) && byte_done) begin
                 saved_byte1 <= saved_byte2;
                 saved_byte2 <= byte_in;
             end
-            if(current == DATA2) saved_byte2 <= byte_in;
+            if((current == DATA1 || current == TOKEN1) && byte_done) saved_byte2 <= byte_in;
         end
     end
 
