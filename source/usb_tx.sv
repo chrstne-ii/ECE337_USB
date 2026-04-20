@@ -68,7 +68,7 @@ module usb_tx #(
         if (!n_rst) begin
             dp_out <= 1'b1;
             dm_out <= 1'b0;
-        end else if (bit_clk) begin
+        end else if (bit_clk||idle) begin
             dp_out <= next_DP_OUT;
             dm_out <= next_DM_OUT;
         end

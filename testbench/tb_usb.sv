@@ -89,7 +89,7 @@ module tb_usb();
     integer i;
     begin
         // First synchronize to away from clock's rising edge
-        @(negedge usb_clk);
+        // @(negedge usb_clk);
 
         // Send data bits
         for(i = 0; i < 8; i = i + 1)
@@ -113,7 +113,7 @@ module tb_usb();
     task send_eop;
     input correct;
     begin
-        @(negedge usb_clk);
+        // @(negedge usb_clk);
         if(correct) begin
             dp_in = '0;
             dm_in = '0;
@@ -140,9 +140,11 @@ module tb_usb();
     input correct;
     begin
         send_sync();
+        @(negedge usb_clk);
         send_byte(.data(pid));
         send_byte(.data(data[7:0]));
         send_byte(.data(data[15:8]));
+        // @(negedge usb_clk);
         send_eop(.correct(correct));
     end
     endtask
@@ -210,6 +212,7 @@ module tb_usb();
     begin
         integer i;
         send_sync();
+        @(negedge usb_clk);
         send_byte(.data(pid));
         for(i = 0; i < num; i = i + 1) begin
             send_byte(.data(data));
@@ -217,6 +220,7 @@ module tb_usb();
         //CRC
         send_byte(.data(8'h00));
         send_byte(.data(8'h00));
+        // @(negedge usb_clk);
         send_eop(.correct(correct));
     end
     endtask

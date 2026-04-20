@@ -9,6 +9,7 @@ add wave -noupdate /tb_ahb_subordinate/DUT/hsel
 add wave -noupdate /tb_ahb_subordinate/DUT/hwrite
 add wave -noupdate /tb_ahb_subordinate/DUT/hsize
 add wave -noupdate /tb_ahb_subordinate/DUT/hwdata
+add wave -noupdate /tb_ahb_subordinate/test_string
 add wave -noupdate -divider {Module Outputs}
 add wave -noupdate /tb_ahb_subordinate/DUT/tx_transfer_active
 add wave -noupdate /tb_ahb_subordinate/DUT/rx_transfer_active
@@ -20,21 +21,17 @@ add wave -noupdate /tb_ahb_subordinate/DUT/buffer_occ
 add wave -noupdate /tb_ahb_subordinate/DUT/rx_data
 add wave -noupdate -divider Output
 add wave -noupdate /tb_ahb_subordinate/DUT/d_mode
+add wave -noupdate /tb_ahb_subordinate/DUT/hready
 add wave -noupdate /tb_ahb_subordinate/DUT/hresp_high
 add wave -noupdate /tb_ahb_subordinate/DUT/hresp
+add wave -noupdate -divider Signals
 add wave -noupdate /tb_ahb_subordinate/DUT/clear
-add wave -noupdate /tb_ahb_subordinate/DUT/hready
-add wave -noupdate /tb_ahb_subordinate/DUT/hrready
-add wave -noupdate /tb_ahb_subordinate/DUT/hwready
 add wave -noupdate /tb_ahb_subordinate/DUT/hrdata
-add wave -noupdate /tb_ahb_subordinate/DUT/read_fsm/state
 add wave -noupdate /tb_ahb_subordinate/DUT/get_rx_data
-add wave -noupdate /tb_ahb_subordinate/DUT/write_fsm/state
 add wave -noupdate /tb_ahb_subordinate/DUT/store_tx_data
 add wave -noupdate /tb_ahb_subordinate/DUT/tx_data
-add wave -noupdate /tb_ahb_subordinate/DUT/regD
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {119503 ps} 0}
+WaveRestoreCursors {{Cursor 1} {83371 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100

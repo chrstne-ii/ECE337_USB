@@ -180,6 +180,7 @@ module tb_ahb_subordinate ();
     logic [7:0] reg8;
 
     logic in, out, ack, data0, data1;
+    string test_string;
 
     assign in = (rx_packet == 1);
     assign out = (rx_packet == 2);
@@ -196,6 +197,7 @@ module tb_ahb_subordinate ();
         reset_model();
         reset_dut();
 
+        test_string = "Writing to Writable Addresses";
         enqueue_write(4'h2, 2'b1, 32'h00BB);
         enqueue_write(4'hC,2'b1,32'h0000_0101);
         enqueue_read(4'hC,2'b1,32'h0);
@@ -204,14 +206,29 @@ module tb_ahb_subordinate ();
 
         finish_transactions();
 
+        test_string = "Clear high";
+        buffer_occ = 1;
+        enqueue_write(4'hD,2'h0,32'h1);
+        execute_transactions(1);
+        finish_transactions();
+        buffer_occ = 0;
+
         @(negedge clk);
         tx_transfer_active = 1;
         rx_error = 1;
         rx_packet = 3;
         buffer_occ = 7'd4;
 
-        enqueue_read(4'h4, 2'h2, {reg6,reg4});
+        test_string = "Reading from Status Registers 0x4-0x8";
+        enqueue_read(4'h4, 2'h2, 32'h10208);
         execute_transactions(1);
+        finish_transactions();
+
+        test_string = "Invalid Writes and Reads";
+        enqueue_write(4'h5,2'h0,32'hBABA);
+        enqueue_read(4'h8,2'h1,32'h0);
+
+        execute_transactions(2);
         finish_transactions();
 
         $finish;

@@ -32,19 +32,19 @@ Please use '-no_save' simv switch to avoid this.
                         https://solvnetplus.synopsys.com)
 Initializing...
 Initializing gui preferences from file  /home/ecegridfs/a/337mg217/.synopsys_dc_gui/preferences.tcl
-Current time:       Mon Apr 20 05:24:26 2026
+Current time:       Mon Apr 20 13:29:27 2026
 Hostname:           ececomp3.ecn.purdue.edu
 CPU Model:          AMD EPYC 7513 32-Core Processor
 CPU Details:        Cores = 128 : Sockets = 2 : Cache Size = 512 KB : Freq = 2.60 GHz
 OS:                 Linux 4.18.0-553.111.1.el8_10.x86_64
-RAM:                502 GB (Free 175 GB)
+RAM:                502 GB (Free 166 GB)
 Swap:                63 GB (Free  55 GB)
 Work Filesystem:    /home/ecegridfs/a mounted to ecegridfs.ecn.purdue.edu:/export/home/a
 Tmp Filesystem:     /tmp mounted to tmpfs
-Work Disk:          2968 GB (Free 338 GB)
+Work Disk:          2968 GB (Free 356 GB)
 Tmp Disk:            19 GB (Free  18 GB)
 
-CPU Load: 43%, Ram Free: 175 GB, Swap Free: 55 GB, Work Disk Free: 338 GB, Tmp Disk Free: 18 GB
+CPU Load: 61%, Ram Free: 166 GB, Swap Free: 55 GB, Work Disk Free: 356 GB, Tmp Disk Free: 18 GB
 ############################################
 #
 # Auto-generated project tcl file:
@@ -53,13 +53,13 @@ CPU Load: 43%, Ram Free: 175 GB, Swap Free: 55 GB, Work Disk Free: 338 GB, Tmp D
 #
 ############################################
 sh date
-Mon Apr 20 05:24:26 EDT 2026
-set TOP_MODULE ahb_subordinate
-ahb_subordinate
+Mon Apr 20 13:29:27 EDT 2026
+set TOP_MODULE usb_tx
+usb_tx
 set DC_SCRIPT synth.tcl
 synth.tcl
-set READ_SOURCES u337mg164_ece337_ahb_subordinate_1.0.0-read-sources
-u337mg164_ece337_ahb_subordinate_1.0.0-read-sources
+set READ_SOURCES u337mg164_ece337_usb_tx_1.0.0-read-sources
+u337mg164_ece337_usb_tx_1.0.0-read-sources
 set SCRIPT_DIR src/u337mg164_ece337_synfiles_0
 src/u337mg164_ece337_synfiles_0
 set REPORT_DIR reports
@@ -76,15 +76,18 @@ set link_library   [concat "*"  /home/ecegrid/a/ece337/summer24-refactor/tech/am
 ############################################
 source ${SCRIPT_DIR}/${DC_SCRIPT}
 Running PRESTO HDLC
-Compiling source file ./src/u337mg164_ece337_hready_read_fsm_1.0.0/source/hready_read_fsm.sv
+Compiling source file ./src/u337mg046_ece337_flex_counter_1.0.0/source/flex_counter.sv
 Presto compilation completed successfully.
 Loading db file '/home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db'
 Loading db file '/package/eda/synopsys/syn/W-2024.09-SP4/libraries/syn/dw_foundation.sldb'
 Running PRESTO HDLC
-Compiling source file ./src/u337mg164_ece337_hready_write_fsm_1.0.0/source/hready_write_fsm.sv
+Compiling source file ./src/u337mg046_ece337_flex_sr_1.0.0/source/flex_sr.sv
 Presto compilation completed successfully.
 Running PRESTO HDLC
-Compiling source file ./src/u337mg164_ece337_ahb_subordinate_1.0.0/source/ahb_subordinate.sv
+Compiling source file ./src/u337mg164_ece337_tx_fsm_1.0.0/source/tx_fsm.sv
+Presto compilation completed successfully.
+Running PRESTO HDLC
+Compiling source file ./src/u337mg164_ece337_usb_tx_1.0.0/source/usb_tx.sv
 Presto compilation completed successfully.
 Loading db file '/package/eda/synopsys/syn/W-2024.09-SP4/libraries/syn/gtech.db'
 Loading db file '/package/eda/synopsys/syn/W-2024.09-SP4/libraries/syn/standard.sldb'
@@ -92,58 +95,87 @@ Loading db file '/package/eda/synopsys/syn/W-2024.09-SP4/libraries/syn/standard.
   Loading link library 'gtech'
 Running PRESTO HDLC
 
+Inferred memory devices in process in routine 'usb_tx' in file
+	 ./src/u337mg164_ece337_usb_tx_1.0.0/source/usb_tx.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|     dp_out_reg      | Flip-flop |   1   |  N  | N  | Async | None  | N  |  67  |
+|     dm_out_reg      | Flip-flop |   1   |  N  | N  | None  | Async | N  |  67  |
+==================================================================================
+Presto compilation completed successfully. (usb_tx)
+Module: usb_tx, Ports: 26, Input: 21, Output: 5, Inout: 0
+Module: usb_tx, Registers: 2, Async set/reset: 2, Sync set/reset: 0
+Information: Module usb_tx report end. (ELAB-965)
+Elaborated 1 design.
+Current design is now 'usb_tx'.
+Information: Building the design 'tx_fsm'. (HDL-193)
+
 Statistics for case statements in always block in file
-	'./src/u337mg164_ece337_ahb_subordinate_1.0.0/source/ahb_subordinate.sv'
+	'./src/u337mg164_ece337_tx_fsm_1.0.0/source/tx_fsm.sv'
 ============================================================
 |    Line    |  full/ parallel  |      block location      |
 ============================================================
-|    171     |    auto/auto     | always block at line 129 |
+|     38     |    auto/auto     | always block at line 36  |
+|    116     |    auto/auto     | always block at line 106 |
 ============================================================
 
-Inferred memory devices in process in routine 'ahb_subordinate' in file
-	 ./src/u337mg164_ece337_ahb_subordinate_1.0.0/source/ahb_subordinate.sv'.
+Inferred memory devices in process in routine 'tx_fsm' in file
+	 ./src/u337mg164_ece337_tx_fsm_1.0.0/source/tx_fsm.sv'.
 ==================================================================================
 |    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
 ==================================================================================
-|   prev_clear_reg    | Flip-flop |   1   |  N  | N  | None  | Async | N  |  46  |
-|     hrdata_reg      | Flip-flop |  32   |  Y  | N  | None  | Async | N  |  46  |
-|    register_reg     | Flip-flop |   8   |  Y  | N  | None  | Async | N  |  46  |
-|   prev_hsize_reg    | Flip-flop |   2   |  Y  | N  | None  | Async | N  |  46  |
-|   prev_haddr_reg    | Flip-flop |   4   |  Y  | N  | None  | Async | N  |  46  |
-|   prev_hresp_reg    | Flip-flop |   1   |  N  | N  | None  | Async | N  |  46  |
-| prev_hresp_high_reg | Flip-flop |   1   |  N  | N  | None  | Async | N  |  46  |
-|   prev_hwrite_reg   | Flip-flop |   1   |  N  | N  | None  | Async | N  |  46  |
+|      state_reg      | Flip-flop |   6   |  Y  | N  | None  | Async | N  |  27  |
 ==================================================================================
-Presto compilation completed successfully. (ahb_subordinate)
-Module: ahb_subordinate, Ports: 114, Input: 65, Output: 49, Inout: 0
-Module: ahb_subordinate, Registers: 50, Async set/reset: 50, Sync set/reset: 0
-Information: Module ahb_subordinate report end. (ELAB-965)
-Elaborated 1 design.
-Current design is now 'ahb_subordinate'.
-Information: Building the design 'hready_read_fsm'. (HDL-193)
+Presto compilation completed successfully. (tx_fsm)
+Module: tx_fsm, Ports: 47, Input: 31, Output: 16, Inout: 0
+Module: tx_fsm, Registers: 6, Async set/reset: 6, Sync set/reset: 0
+Information: Module tx_fsm report end. (ELAB-965)
+Information: Building the design 'flex_counter' instantiated from design 'usb_tx' with
+	the parameters "SIZE=5". (HDL-193)
 
-Statistics for case statements in always block in file
-	'./src/u337mg164_ece337_hready_read_fsm_1.0.0/source/hready_read_fsm.sv'
-===========================================================
-|    Line    |  full/ parallel  |      block location     |
-===========================================================
-|     36     |     no/auto      | always block at line 30 |
-===========================================================
-
-Inferred memory devices in process in routine 'hready_read_fsm' in file
-	 ./src/u337mg164_ece337_hready_read_fsm_1.0.0/source/hready_read_fsm.sv'.
+Inferred memory devices in process in routine 'flex_counter_SIZE5' in file
+	 ./src/u337mg046_ece337_flex_counter_1.0.0/source/flex_counter.sv'.
 ==================================================================================
 |    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
 ==================================================================================
-|     buffer_reg      | Flip-flop |  32   |  Y  | N  | None  | Async | N  |  20  |
-|      state_reg      | Flip-flop |   5   |  Y  | N  | None  | Async | N  |  20  |
+|    count_out_reg    | Flip-flop |   5   |  Y  | N  | None  | Async | N  |  18  |
+|  rollover_flag_reg  | Flip-flop |   1   |  N  | N  | None  | Async | N  |  18  |
 ==================================================================================
-Presto compilation completed successfully. (hready_read_fsm)
-Module: hready_read_fsm, Ports: 54, Input: 19, Output: 35, Inout: 0
-Module: hready_read_fsm, Registers: 37, Async set/reset: 37, Sync set/reset: 0
-Information: Module hready_read_fsm report end. (ELAB-965)
-Information: Uniquified 2 instances of design 'hready_read_fsm'. (OPT-1056)
-CPU Load: 43%, Ram Free: 175 GB, Swap Free: 55 GB, Work Disk Free: 338 GB, Tmp Disk Free: 18 GB
+Presto compilation completed successfully. (flex_counter_SIZE5)
+Module: flex_counter_SIZE5, Ports: 15, Input: 9, Output: 6, Inout: 0
+Module: flex_counter_SIZE5, Registers: 6, Async set/reset: 6, Sync set/reset: 0
+Information: Module flex_counter_SIZE5 report end. (ELAB-965)
+Information: Building the design 'flex_counter' instantiated from design 'usb_tx' with
+	the parameters "SIZE=4". (HDL-193)
+
+Inferred memory devices in process in routine 'flex_counter_SIZE4' in file
+	 ./src/u337mg046_ece337_flex_counter_1.0.0/source/flex_counter.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|    count_out_reg    | Flip-flop |   4   |  Y  | N  | None  | Async | N  |  18  |
+|  rollover_flag_reg  | Flip-flop |   1   |  N  | N  | None  | Async | N  |  18  |
+==================================================================================
+Presto compilation completed successfully. (flex_counter_SIZE4)
+Module: flex_counter_SIZE4, Ports: 13, Input: 8, Output: 5, Inout: 0
+Module: flex_counter_SIZE4, Registers: 5, Async set/reset: 5, Sync set/reset: 0
+Information: Module flex_counter_SIZE4 report end. (ELAB-965)
+Information: Building the design 'flex_sr' instantiated from design 'usb_tx' with
+	the parameters "SIZE=8,MSB_FIRST=1,PRIORITY=1". (HDL-193)
+
+Inferred memory devices in process in routine 'flex_sr_SIZE8_MSB_FIRST1_PRIORITY1' in file
+	 ./src/u337mg046_ece337_flex_sr_1.0.0/source/flex_sr.sv'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|  parallel_out_reg   | Flip-flop |   8   |  Y  | N  | Async | None  | N  |  20  |
+==================================================================================
+Presto compilation completed successfully. (flex_sr_SIZE8_MSB_FIRST1_PRIORITY1)
+Module: flex_sr_SIZE8_MSB_FIRST1_PRIORITY1, Ports: 22, Input: 13, Output: 9, Inout: 0
+Module: flex_sr_SIZE8_MSB_FIRST1_PRIORITY1, Registers: 8, Async set/reset: 8, Sync set/reset: 0
+Information: Module flex_sr_SIZE8_MSB_FIRST1_PRIORITY1 report end. (ELAB-965)
+CPU Load: 61%, Ram Free: 166 GB, Swap Free: 55 GB, Work Disk Free: 356 GB, Tmp Disk Free: 18 GB
 Information: Checking out the license 'DesignWare'. (SEC-104)
 Information: Evaluating DesignWare library utilization. (UISN-27)
 
@@ -162,29 +194,29 @@ Information: Evaluating DesignWare library utilization. (UISN-27)
 | Design Information                                      | Value                                  |
 ====================================================================================================
 | Number of Scenarios                                     | 0                                      |
-| Leaf Cell Count                                         | 1156                                   |
-| Number of User Hierarchies                              | 2                                      |
-| Sequential Cell Count                                   | 124                                    |
+| Leaf Cell Count                                         | 396                                    |
+| Number of User Hierarchies                              | 4                                      |
+| Sequential Cell Count                                   | 27                                     |
 | Macro Count                                             | 0                                      |
 | Pad Count                                               | 0                                      |
 | Number of Power Domains                                 | 0                                      |
 | Number of Path Groups                                   | 1                                      |
 | Number of VT Class                                      | 0                                      |
 | Number of Clocks                                        | 0                                      |
-| Number of Dont Touch Cells                              | 366                                    |
+| Number of Dont Touch Cells                              | 141                                    |
 | Number of Dont Touch Nets                               | 0                                      |
 | Number of Size Only Cells                               | 0                                      |
 | Design with Target Library Subset (with clock_path)     | false  (false )                        |
 | Design with UPF Data                                    | false                                  |
 ====================================================================================================
 
-Information: There are 187 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+Information: There are 22 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
 
 
 
   Beginning Pass 1 Mapping
   ------------------------
-  Processing 'hready_read_fsm_0'
+  Processing 'flex_sr_SIZE8_MSB_FIRST1_PRIORITY1'
 Module: DW01_MUX, Ports: 4, Input: 3, Output: 1, Inout: 0
 Module: DW01_MUX, Registers: 0, Async set/reset: 0, Sync set/reset: 0
 Module: DW01_mmux_width2, Ports: 7, Input: 5, Output: 2, Inout: 0
@@ -197,100 +229,109 @@ Module: DW01_mmux_width5, Ports: 16, Input: 11, Output: 5, Inout: 0
 Module: DW01_mmux_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
 Module: DW01_NOT, Ports: 2, Input: 1, Output: 1, Inout: 0
 Module: DW01_NOT, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-  Processing 'ahb_subordinate'
-Module: DW01_dec_width4, Ports: 8, Input: 4, Output: 4, Inout: 0
-Module: DW01_dec_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Processing 'flex_counter_SIZE4'
+Module: DW01_inc_width4, Ports: 8, Input: 4, Output: 4, Inout: 0
+Module: DW01_inc_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
 Module: DW01_NAND2, Ports: 3, Input: 2, Output: 1, Inout: 0
 Module: DW01_NAND2, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_add_width4, Ports: 14, Input: 9, Output: 5, Inout: 0
-Module: DW01_add_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_add_width5, Ports: 17, Input: 11, Output: 6, Inout: 0
-Module: DW01_add_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_dec_width6, Ports: 12, Input: 6, Output: 6, Inout: 0
-Module: DW01_dec_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_add_width6, Ports: 20, Input: 13, Output: 7, Inout: 0
-Module: DW01_add_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_dec_width5, Ports: 10, Input: 5, Output: 5, Inout: 0
+Module: DW01_dec_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
 Module: DW01_cmp6_width4, Ports: 15, Input: 9, Output: 6, Inout: 0
 Module: DW01_cmp6_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_cmp6_width2, Ports: 11, Input: 5, Output: 6, Inout: 0
-Module: DW01_cmp6_width2, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_cmp6_width7, Ports: 21, Input: 15, Output: 6, Inout: 0
-Module: DW01_cmp6_width7, Registers: 0, Async set/reset: 0, Sync set/reset: 0
 Module: DW01_cmp6_width32, Ports: 71, Input: 65, Output: 6, Inout: 0
 Module: DW01_cmp6_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW_rash_A_width4_SH_width2, Ports: 12, Input: 8, Output: 4, Inout: 0
-Module: DW_rash_A_width4_SH_width2, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_cmp2_width4, Ports: 12, Input: 10, Output: 2, Inout: 0
-Module: DW01_cmp2_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_cmp2_width32, Ports: 68, Input: 66, Output: 2, Inout: 0
-Module: DW01_cmp2_width32, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_sub_width5, Ports: 17, Input: 11, Output: 6, Inout: 0
+Module: DW01_sub_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_incdec_width5, Ports: 11, Input: 6, Output: 5, Inout: 0
+Module: DW01_incdec_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_add_width4, Ports: 14, Input: 9, Output: 5, Inout: 0
+Module: DW01_add_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_incdec_width4, Ports: 9, Input: 5, Output: 4, Inout: 0
+Module: DW01_incdec_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW02_mult_A_width4_B_width1, Ports: 11, Input: 6, Output: 5, Inout: 0
+Module: DW02_mult_A_width4_B_width1, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_absval_width4, Ports: 8, Input: 4, Output: 4, Inout: 0
+Module: DW01_absval_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_inc_width4, Ports: 8, Input: 4, Output: 4, Inout: 0
+Module: DW01_inc_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_absval_width1, Ports: 2, Input: 1, Output: 1, Inout: 0
+Module: DW01_absval_width1, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_inc_width1, Ports: 2, Input: 1, Output: 1, Inout: 0
+Module: DW01_inc_width1, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_inc_width5, Ports: 10, Input: 5, Output: 5, Inout: 0
+Module: DW01_inc_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW02_mult_A_width1_B_width4, Ports: 11, Input: 6, Output: 5, Inout: 0
+Module: DW02_mult_A_width1_B_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Information: Added key list 'DesignWare' to design 'flex_counter_SIZE4'. (DDB-72)
+  Processing 'flex_counter_SIZE5'
+Module: DW01_inc_width5, Ports: 10, Input: 5, Output: 5, Inout: 0
+Module: DW01_inc_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_dec_width6, Ports: 12, Input: 6, Output: 6, Inout: 0
+Module: DW01_dec_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_cmp6_width5, Ports: 17, Input: 11, Output: 6, Inout: 0
+Module: DW01_cmp6_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
 Module: DW01_sub_width6, Ports: 20, Input: 13, Output: 7, Inout: 0
 Module: DW01_sub_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
 Module: DW01_incdec_width6, Ports: 13, Input: 7, Output: 6, Inout: 0
 Module: DW01_incdec_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_cmp2_width7, Ports: 18, Input: 16, Output: 2, Inout: 0
-Module: DW01_cmp2_width7, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_sub_width4, Ports: 14, Input: 9, Output: 5, Inout: 0
-Module: DW01_sub_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Module: DW01_incdec_width4, Ports: 9, Input: 5, Output: 4, Inout: 0
-Module: DW01_incdec_width4, Registers: 0, Async set/reset: 0, Sync set/reset: 0
-Information: The register 'prev_hresp_reg' will be removed. (OPT-1207)
-Information: Added key list 'DesignWare' to design 'ahb_subordinate'. (DDB-72)
-Information: The register 'prev_clear_reg' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[31]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[30]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[29]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[28]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[27]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[26]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[25]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[24]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[23]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[22]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[21]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[20]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[19]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[18]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[17]' is a constant and will be removed. (OPT-1206)
-Information: The register 'hrdata_reg[16]' is a constant and will be removed. (OPT-1206)
+Module: DW01_add_width5, Ports: 17, Input: 11, Output: 6, Inout: 0
+Module: DW01_add_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW02_mult_A_width5_B_width1, Ports: 13, Input: 7, Output: 6, Inout: 0
+Module: DW02_mult_A_width5_B_width1, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_absval_width5, Ports: 10, Input: 5, Output: 5, Inout: 0
+Module: DW01_absval_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW01_inc_width6, Ports: 12, Input: 6, Output: 6, Inout: 0
+Module: DW01_inc_width6, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Module: DW02_mult_A_width1_B_width5, Ports: 13, Input: 7, Output: 6, Inout: 0
+Module: DW02_mult_A_width1_B_width5, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+Information: Added key list 'DesignWare' to design 'flex_counter_SIZE5'. (DDB-72)
+  Processing 'tx_fsm'
+Information: The register 'state_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'state_reg[4]' is a constant and will be removed. (OPT-1206)
+  Processing 'usb_tx'
 
   Updating timing information
 Information: Updating design information... (UID-85)
-Information: Design 'ahb_subordinate' has no optimization constraints set. (OPT-108)
+Information: Design 'usb_tx' has no optimization constraints set. (OPT-108)
 
   Beginning Implementation Selection
   ----------------------------------
-  Processing 'ahb_subordinate_DW01_cmp2_0_DW01_cmp2_5'
-  Processing 'ahb_subordinate_DW01_dec_0_DW01_dec_1'
-  Processing 'ahb_subordinate_DW01_add_0_DW01_add_1'
-  Processing 'ahb_subordinate_DW01_cmp2_1_DW01_cmp2_6'
-  Mapping 'DW_rightsh'
+  Processing 'flex_counter_SIZE4_DW01_dec_0'
+  Mapping 'flex_counter_SIZE4_DW_mult_uns_0'
+  Processing 'flex_counter_SIZE5_DW01_dec_0_DW01_dec_1'
+  Processing 'flex_counter_SIZE5_DW01_inc_0_DW01_inc_3'
+  Mapping 'flex_counter_SIZE5_DW_mult_uns_0'
+  Processing 'flex_counter_SIZE5_DW01_cmp6_0_DW01_cmp6_1'
 
   Beginning Mapping Optimizations  (Medium effort)
   -------------------------------
-  Structuring 'hready_read_fsm_0'
-  Mapping 'hready_read_fsm_0'
-  Structuring 'hready_read_fsm_1'
-  Mapping 'hready_read_fsm_1'
-  Structuring 'ahb_subordinate'
-  Mapping 'ahb_subordinate'
+  Structuring 'flex_sr_SIZE8_MSB_FIRST1_PRIORITY1'
+  Mapping 'flex_sr_SIZE8_MSB_FIRST1_PRIORITY1'
+  Structuring 'flex_counter_SIZE4'
+  Mapping 'flex_counter_SIZE4'
+  Structuring 'flex_counter_SIZE5'
+  Mapping 'flex_counter_SIZE5'
+  Structuring 'tx_fsm'
+  Mapping 'tx_fsm'
+  Structuring 'usb_tx'
+  Mapping 'usb_tx'
 
                                   TOTAL                                      
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
 
 
 
@@ -301,11 +342,11 @@ Information: Design 'ahb_subordinate' has no optimization constraints set. (OPT-
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
 
 
   Beginning Area-Recovery Phase  (cleanup)
@@ -315,17 +356,17 @@ Information: Design 'ahb_subordinate' has no optimization constraints set. (OPT-
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
-    0:00:02  281142.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
+    0:00:02  112581.0      0.00       0.0       0.0                          
 Loading db file '/home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db'
 
 
@@ -334,7 +375,7 @@ Note: Symbol # after min delay cost means estimated hold TNS across all active s
 
   Optimization Complete
   ---------------------
-CPU Load: 44%, Ram Free: 175 GB, Swap Free: 55 GB, Work Disk Free: 338 GB, Tmp Disk Free: 18 GB
+CPU Load: 61%, Ram Free: 166 GB, Swap Free: 55 GB, Work Disk Free: 356 GB, Tmp Disk Free: 18 GB
 Information: Total number of MV cells in the design.
 ----------------------------------------------------------------------------------------------------
  MV Cells                                           Total Number                                   
@@ -358,97 +399,59 @@ Unmapped MV Cells
 ****************************************
 check_design summary:
 Version:     W-2024.09-SP4
-Date:        Mon Apr 20 05:24:29 2026
+Date:        Mon Apr 20 13:29:31 2026
 ****************************************
 
                    Name                                            Total
 --------------------------------------------------------------------------------
-Inputs/Outputs                                                     62
-    Unloaded inputs (LINT-8)                                        8
-    Unconnected ports (LINT-28)                                    31
-    Shorted outputs (LINT-31)                                       2
-    Constant outputs (LINT-52)                                     21
+Inputs/Outputs                                                      1
+    Shorted outputs (LINT-31)                                       1
 
-Nets                                                                8
-    Unloaded nets (LINT-2)                                          8
+Cells                                                              17
+    Connected to power or ground (LINT-32)                         10
+    Nets connected to multiple pins on same cell (LINT-33)          7
 --------------------------------------------------------------------------------
 
-Warning: In design 'ahb_subordinate', net 'hwdata[8]' driven by pin 'hwdata[8]' has no loads. (LINT-2)
-Warning: In design 'ahb_subordinate', net 'hwdata[9]' driven by pin 'hwdata[9]' has no loads. (LINT-2)
-Warning: In design 'ahb_subordinate', net 'hwdata[10]' driven by pin 'hwdata[10]' has no loads. (LINT-2)
-Warning: In design 'ahb_subordinate', net 'hwdata[11]' driven by pin 'hwdata[11]' has no loads. (LINT-2)
-Warning: In design 'ahb_subordinate', net 'hwdata[12]' driven by pin 'hwdata[12]' has no loads. (LINT-2)
-Warning: In design 'ahb_subordinate', net 'hwdata[13]' driven by pin 'hwdata[13]' has no loads. (LINT-2)
-Warning: In design 'ahb_subordinate', net 'hwdata[14]' driven by pin 'hwdata[14]' has no loads. (LINT-2)
-Warning: In design 'ahb_subordinate', net 'hwdata[15]' driven by pin 'hwdata[15]' has no loads. (LINT-2)
-Warning: In design 'ahb_subordinate', input port 'hwdata[15]' is unloaded. (LINT-8)
-Warning: In design 'ahb_subordinate', input port 'hwdata[14]' is unloaded. (LINT-8)
-Warning: In design 'ahb_subordinate', input port 'hwdata[13]' is unloaded. (LINT-8)
-Warning: In design 'ahb_subordinate', input port 'hwdata[12]' is unloaded. (LINT-8)
-Warning: In design 'ahb_subordinate', input port 'hwdata[11]' is unloaded. (LINT-8)
-Warning: In design 'ahb_subordinate', input port 'hwdata[10]' is unloaded. (LINT-8)
-Warning: In design 'ahb_subordinate', input port 'hwdata[9]' is unloaded. (LINT-8)
-Warning: In design 'ahb_subordinate', input port 'hwdata[8]' is unloaded. (LINT-8)
-Warning: In design 'ahb_subordinate', port 'rx_data_ready' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'rx_error' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'tx_error' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'rx_packet[2]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'rx_packet[1]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'rx_packet[0]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[31]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[30]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[29]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[28]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[27]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[26]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[25]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[24]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[23]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[22]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[21]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[20]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[19]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[18]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[17]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'hwdata[16]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'store_tx_data' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'tx_data[7]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'tx_data[6]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'tx_data[5]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'tx_data[4]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'tx_data[3]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'tx_data[2]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'tx_data[1]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', port 'tx_data[0]' is not connected to any nets. (LINT-28)
-Warning: In design 'ahb_subordinate', output port 'tx_packet[2]' is connected directly to output port 'tx_packet[1]'. (LINT-31)
-Warning: In design 'ahb_subordinate', output port 'tx_packet[2]' is connected directly to output port 'tx_packet[0]'. (LINT-31)
-Warning: In design 'ahb_subordinate', output port 'hready' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'clear' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'tx_packet[2]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'tx_packet[1]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'tx_packet[0]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[31]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[30]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[29]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[28]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[27]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[26]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[25]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[24]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[23]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[22]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[21]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[20]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[19]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[18]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[17]' is connected directly to 'logic 0'. (LINT-52)
-Warning: In design 'ahb_subordinate', output port 'hrdata[16]' is connected directly to 'logic 0'. (LINT-52)
-Writing verilog file '/home/ecegridfs/a/337mg217/ece337/ECE337_USB/tmp/build/u337mg164_ece337_ahb_subordinate_1.0.0/syn-design_compiler/ahb_subordinate.v'.
-Warning: Verilog writer has added 48 nets to module ahb_subordinate using SYNOPSYS_UNCONNECTED_ as prefix.  Please use the change_names command to make the correct changes before invoking the verilog writer.  (VO-11)
+Warning: In design 'flex_sr_SIZE8_MSB_FIRST1_PRIORITY1', output port 'serial_out' is connected directly to output port 'parallel_out[7]'. (LINT-31)
+Warning: In design 'usb_tx', a pin on submodule 'data_period' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[4]' is connected to logic 1. 
+Warning: In design 'usb_tx', a pin on submodule 'data_period' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[3]' is connected to logic 1. 
+Warning: In design 'usb_tx', a pin on submodule 'data_period' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[2]' is connected to logic 0. 
+Warning: In design 'usb_tx', a pin on submodule 'data_period' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[1]' is connected to logic 0. 
+Warning: In design 'usb_tx', a pin on submodule 'data_period' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[0]' is connected to logic 1. 
+Warning: In design 'usb_tx', a pin on submodule 'byte_counter' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[3]' is connected to logic 1. 
+Warning: In design 'usb_tx', a pin on submodule 'byte_counter' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[2]' is connected to logic 0. 
+Warning: In design 'usb_tx', a pin on submodule 'byte_counter' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[1]' is connected to logic 0. 
+Warning: In design 'usb_tx', a pin on submodule 'byte_counter' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'rollover_val[0]' is connected to logic 0. 
+Warning: In design 'usb_tx', a pin on submodule 'load_sr' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'serial_in' is connected to logic 0. 
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'fsm'. (LINT-33)
+   Net 'tx_packet[3]' is connected to pins 'tx_packet[3]', 'pid_packet[4]''.
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'fsm'. (LINT-33)
+   Net 'tx_packet[2]' is connected to pins 'tx_packet[2]', 'pid_packet[5]''.
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'fsm'. (LINT-33)
+   Net 'tx_packet[1]' is connected to pins 'tx_packet[1]', 'pid_packet[6]''.
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'fsm'. (LINT-33)
+   Net 'tx_packet[0]' is connected to pins 'tx_packet[0]', 'pid_packet[7]''.
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'data_period'. (LINT-33)
+   Net '*Logic1*' is connected to pins 'rollover_val[4]', 'rollover_val[3]'', 'rollover_val[0]'.
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'data_period'. (LINT-33)
+   Net '*Logic0*' is connected to pins 'rollover_val[2]', 'rollover_val[1]''.
+Warning: In design 'usb_tx', the same net is connected to more than one pin on submodule 'byte_counter'. (LINT-33)
+   Net '*Logic0*' is connected to pins 'rollover_val[2]', 'rollover_val[1]'', 'rollover_val[0]'.
+Writing verilog file '/home/ecegridfs/a/337mg217/ece337/ECE337_USB/tmp/build/u337mg164_ece337_usb_tx_1.0.0/syn-design_compiler/usb_tx.v'.
 
-Memory usage for this session 154 Mbytes.
-Memory usage for this session including child processes 154 Mbytes.
+Memory usage for this session 150 Mbytes.
+Memory usage for this session including child processes 150 Mbytes.
 CPU usage for this session 5 seconds ( 0.00 hours ).
-Elapsed time for this session 8 seconds ( 0.00 hours ).
+Elapsed time for this session 7 seconds ( 0.00 hours ).
 
 Thank you...

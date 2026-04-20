@@ -7,7 +7,7 @@ Report : timing
         -max_paths 1
 Design : ahb_subordinate
 Version: W-2024.09-SP4
-Date   : Mon Apr 20 05:24:29 2026
+Date   : Mon Apr 20 13:05:37 2026
 ****************************************
 
 Operating Conditions: typical   Library: osu05_stdcells
@@ -15,26 +15,41 @@ Wire Load Model Mode: top
 
   Startpoint: read_fsm/state_reg[0]
               (rising edge-triggered flip-flop)
-  Endpoint: get_rx_data
-            (output port)
+  Endpoint: clear (output port)
   Path Group: (none)
   Path Type: max
 
-  Point                                                   Incr       Path
-  --------------------------------------------------------------------------
-  read_fsm/state_reg[0]/CLK (DFFSR)                       0.00       0.00 r
-  read_fsm/state_reg[0]/Q (DFFSR)                         0.91       0.91 r
-  read_fsm/U203/Y (INVX1)                                 0.87       1.79 f
-  read_fsm/U195/Y (NAND3X1)                               0.45       2.24 r
-  read_fsm/U194/Y (OAI21X1)                               0.08       2.32 f
-  read_fsm/U193/Y (INVX1)                                 0.18       2.51 r
-  read_fsm/U192/Y (NAND2X1)                               0.12       2.63 f
-  read_fsm/U187/Y (OR2X1)                                 0.24       2.86 f
-  read_fsm/get_rx_data (hready_read_fsm_1)                0.00       2.86 f
-  U382/Y (AND2X1)                                         0.16       3.02 f
-  get_rx_data (out)                                       0.00       3.02 f
-  data arrival time                                                  3.02
-  --------------------------------------------------------------------------
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  read_fsm/state_reg[0]/CLK (DFFSR)        0.00       0.00 r
+  read_fsm/state_reg[0]/Q (DFFSR)          0.91       0.91 f
+  read_fsm/U191/Y (INVX1)                  0.44       1.35 r
+  read_fsm/U190/Y (NAND2X1)                0.27       1.61 f
+  read_fsm/U189/Y (NOR2X1)                 0.16       1.78 r
+  read_fsm/U188/Y (INVX1)                  0.23       2.01 f
+  read_fsm/U150/Y (OAI21X1)                0.16       2.17 r
+  read_fsm/U149/Y (NOR2X1)                 0.78       2.95 f
+  read_fsm/U146/Y (AND2X1)                 0.77       3.72 f
+  read_fsm/U145/Y (AND2X1)                 0.73       4.45 f
+  read_fsm/U142/Y (AND2X1)                 0.74       5.19 f
+  read_fsm/U140/Y (NAND3X1)                0.56       5.75 r
+  read_fsm/U138/Y (NAND3X1)                0.02       5.77 f
+  read_fsm/hrready (hready_read_fsm)       0.00       5.77 f
+  U1253/Y (NAND3X1)                        0.17       5.94 r
+  U1252/Y (INVX1)                          0.25       6.19 f
+  U1251/Y (NAND3X1)                        0.15       6.34 r
+  U1250/Y (INVX1)                          0.23       6.57 f
+  U1249/Y (NAND2X1)                        0.18       6.75 r
+  U1248/Y (INVX1)                          0.21       6.96 f
+  U1241/Y (NAND2X1)                        0.24       7.21 r
+  U1230/Y (INVX1)                          0.56       7.77 f
+  U1152/Y (NAND2X1)                        0.30       8.07 r
+  U1150/Y (OAI21X1)                        0.10       8.18 f
+  U1149/Y (OAI21X1)                        0.12       8.30 r
+  U1148/Y (INVX1)                          0.08       8.38 f
+  clear (out)                              0.00       8.38 f
+  data arrival time                                   8.38
+  -----------------------------------------------------------
   (Path is unconstrained)
 
 
@@ -44,29 +59,29 @@ Wire Load Model Mode: top
 Report : area
 Design : ahb_subordinate
 Version: W-2024.09-SP4
-Date   : Mon Apr 20 05:24:29 2026
+Date   : Mon Apr 20 13:05:37 2026
 ****************************************
 
 Library(s) Used:
 
     osu05_stdcells (File: /home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db)
 
-Number of ports:                          222
-Number of nets:                           806
-Number of cells:                          717
-Number of combinational cells:            484
-Number of sequential cells:               106
+Number of ports:                          224
+Number of nets:                          1502
+Number of cells:                         1330
+Number of combinational cells:           1130
+Number of sequential cells:                99
 Number of macros/black boxes:               0
-Number of buf/inv:                        115
-Number of references:                      17
+Number of buf/inv:                        281
+Number of references:                      21
 
-Combinational area:             113238.000000
-Buf/Inv area:                    16560.000000
-Noncombinational area:          167904.000000
+Combinational area:             278640.000000
+Buf/Inv area:                    40896.000000
+Noncombinational area:          156816.000000
 Macro/Black Box area:                0.000000
 Net Interconnect area:      undefined  (No wire load specified)
 
-Total cell area:                281142.000000
+Total cell area:                435456.000000
 Total area:                 undefined
 1
 Loading db file '/home/ecegrid/a/ece337/summer24-refactor/tech/ami05/osu05_stdcells.db'
@@ -80,7 +95,7 @@ Report : power
         -analysis_effort low
 Design : ahb_subordinate
 Version: W-2024.09-SP4
-Date   : Mon Apr 20 05:24:30 2026
+Date   : Mon Apr 20 13:05:37 2026
 ****************************************
 
 
@@ -107,12 +122,12 @@ Attributes
 i - Including register clock pin internal power
 
 
-  Cell Internal Power  =  18.9284 mW   (68%)
-  Net Switching Power  =   8.7253 mW   (32%)
+  Cell Internal Power  =  26.5481 mW   (50%)
+  Net Switching Power  =  26.5344 mW   (50%)
                          ---------
-Total Dynamic Power    =  27.6538 mW  (100%)
+Total Dynamic Power    =  53.0825 mW  (100%)
 
-Cell Leakage Power     =  87.8778 nW
+Cell Leakage Power     = 126.6520 nW
 
 Information: report_power power group summary does not include estimated clock tree power. (PWR-789)
 
@@ -124,8 +139,8 @@ memory             0.0000            0.0000            0.0000            0.0000 
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
 clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)  i
 register           0.0000            0.0000            0.0000            0.0000  (   0.00%)
-sequential        12.8812            0.1882           56.4957           13.0694  (  47.26%)
-combinational      6.0473            8.5371           31.3822           14.5844  (  52.74%)
+sequential        12.2552            0.1730           52.7648           12.4283  (  23.41%)
+combinational     14.2929           26.3614           73.8872           40.6543  (  76.59%)
 --------------------------------------------------------------------------------------------------
-Total             18.9285 mW         8.7253 mW        87.8778 nW        27.6539 mW
+Total             26.5481 mW        26.5344 mW       126.6520 nW        53.0826 mW
 1
