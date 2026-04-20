@@ -4,15 +4,16 @@ module hready_write_fsm #(
     // parameters
 ) (
     input logic clk, n_rst,
-    input logic hresp, prev_hwrite, hsel,
-    input logic [3:0] prev_haddr,
-    input logic [1:0] prev_hsize,
+    input logic hresp, hsel, hwrite,
+    input logic [3:0] haddr,
+    input logic [1:0] hsize,
     input logic [31:0] hwdata,
     output logic hwready, store_tx_data,
     output logic [7:0] tx_data
 );
 
-    typedef enum logic[3:0] {IDLE, FIRST, STORE_FIRST, SEC, STORE_SEC, THIRD, STORE_THIRD, FOURTH, STORE_FOURTH, FIRST_S1, STORE_FIRST_S1} state_t;
+    typedef enum logic [4:0] {IDLE, FIRST, STORE_FIRST, SEC, STORE_SEC, THIRD, STORE_THIRD, FOURTH, STORE_FOURTH, FIRST_S1, STORE_FIRST_S1,
+    FIRST_S2, STORE_FIRST_S2, SEC_S2, STORE_SEC_S2} state_t;
 
     state_t state, next_state;
     logic[7:0] next_data;
@@ -32,20 +33,20 @@ module hready_write_fsm #(
         store_tx_data = 0;
         hwready = 1;
         next_data = tx_data;
-
         casez(state)
 
             IDLE: begin
+                next_state = IDLE;
                 store_tx_data = 0;
                 hwready = 1;
-                if(prev_haddr<4'h4 && prev_hsize > 0 && !hresp && !prev_hwrite && hsel) begin
+                if(haddr<4'h4 && hsize == 4'h2 && !hresp && !hwrite && hsel) begin
                     next_state = FIRST;
                 end 
-                else if(prev_haddr<4'h4 && prev_hsize == 0 && !hresp && !prev_hwrite && hsel)begin
+                else if(haddr<4'h4 && hsize == 0 && !hresp && !hwrite && hsel)begin
                     next_state = FIRST_S1;
                 end
-                else begin
-                    next_state = IDLE;
+                else if(haddr<4'h4 && hsize == 4'h1 && !hresp && !hwrite && hsel)begin
+                    next_state = FIRST_S2;
                 end
             end
             FIRST_S1: begin
@@ -56,7 +57,7 @@ module hready_write_fsm #(
             end
             STORE_FIRST_S1: begin
                 store_tx_data = 1;
-                hwready = 1;
+                hwready = 0;
                 next_state = IDLE;
             end
             FIRST: begin
@@ -82,9 +83,6 @@ module hready_write_fsm #(
                 store_tx_data = 1;
                 hwready = 0;
                 next_data = tx_data;
-                if(prev_hsize == 1) begin
-                    next_state = IDLE;
-                end
             end
             THIRD: begin
                 store_tx_data = 0;
@@ -102,13 +100,37 @@ module hready_write_fsm #(
                 store_tx_data = 0;
                 hwready = 0;
                 next_data = hwdata[7:0];
-                next_state = IDLE;
+                next_state = STORE_FOURTH;
             end
-            default: begin
+            STORE_FOURTH: begin
                 store_tx_data = 1;
-                hwready = 1;
+                hwready = 0;
                 next_data = tx_data;
                 next_state = IDLE;
+            end
+            FIRST_S2: begin
+                store_tx_data = 0;
+                hwready = 0;
+                next_data = hwdata[31:24];
+                next_state = STORE_FIRST;
+            end
+            STORE_FIRST_S2: begin
+                store_tx_data = 1;
+                hwready = 0;
+                next_data = tx_data;
+                next_state = SEC;
+            end
+            SEC_S2: begin
+                store_tx_data = 0;
+                hwready = 0;
+                next_data = hwdata[23:16];
+                next_state = STORE_SEC;
+            end
+            STORE_SEC_S2: begin
+                next_state = IDLE;
+                store_tx_data = 1;
+                hwready = 0;
+                next_data = tx_data;
             end
         endcase
     end

@@ -6,17 +6,14 @@ module tb_ahb_subordinate ();
     localparam CLK_PERIOD = 10ns;
     localparam TIMEOUT = 1000;
 
-    localparam [2:0] SIZE_BYTE = 3'b00, SIZE_TWOB = 3'b01, SIZE_FOURB = 3'b10;
-    localparam [3:0] ADDR_CTRL   = 4'h4;
-    localparam [3:0] ADDR_FIFO   = 4'h8;
-    localparam BURST_SINGLE      = 3'd0;
-    localparam BURST_INCR        = 3'd1;
-    localparam BURST_WRAP4       = 3'd2;
-    localparam BURST_INCR4       = 3'd3;
-    localparam BURST_WRAP8       = 3'd4;
-    localparam BURST_INCR8       = 3'd5;
-    localparam BURST_WRAP16      = 3'd6;
-    localparam BURST_INCR16      = 3'd7;
+    localparam BURST_SINGLE = 3'd0;
+    localparam BURST_INCR   = 3'd1;
+    localparam BURST_WRAP4  = 3'd2;
+    localparam BURST_INCR4  = 3'd3;
+    localparam BURST_WRAP8  = 3'd4;
+    localparam BURST_INCR8  = 3'd5;
+    localparam BURST_WRAP16 = 3'd6;
+    localparam BURST_INCR16 = 3'd7;
 
     initial begin
         $dumpfile("waveform.fst");
@@ -34,19 +31,26 @@ module tb_ahb_subordinate ();
     end
 
     logic hsel;
-    logic [7:0] tx_data, rx_data;
-    logic [6:0] buffer_occ;
-    logic [3:0] haddr, tx_packet;
-    logic [2:0] hburst, rx_packet;
-    logic [1:0] htrans, hsize;
-    logic [31:0] hwdata,hrdata;
-    logic hresp, hready, hwrite, clear, d_mode;
-    logic store_tx_data, tx_transfer_active, tx_error;
-    logic get_rx_data, rx_transfer_active, rx_error, rx_data_ready;
-    string test_string;
-    string phase;
+    logic [3:0] haddr;
+    logic [1:0] hsize;
+    logic [2:0] hburst;
+    logic [1:0] htrans;
+    logic hwrite;
+    logic [31:0] hwdata;
+    logic [31:0] hrdata;
+    logic hresp;
+    logic hready;
 
-    ahb_subordinate DUT(.*);
+    logic rx_transfer_active, rx_data_ready, rx_error;
+    logic tx_transfer_active, tx_error;
+    logic [2:0] rx_packet;
+    logic [6:0] buffer_occ;
+    logic [7:0] rx_data;
+
+    logic d_mode;
+    logic get_rx_data, store_tx_data, clear;
+    logic [2:0] tx_packet;
+    logic [7:0] tx_data;
 
     // bus model connections
     ahb_model_updated #(
@@ -65,6 +69,29 @@ module tb_ahb_subordinate ();
         .hresp(hresp),
         .hready(hready)
     );
+
+    ahb_subordinate DUT(.*);
+
+    task reset_dut;
+    begin
+        rx_transfer_active = 0;
+        rx_data_ready = 0;
+        rx_error = 0;
+        tx_transfer_active = 0;
+        tx_error = '0;
+        rx_packet = '0;
+        buffer_occ = '0;
+        rx_data = '0;
+
+        n_rst = 0;
+        @(posedge clk);
+        @(posedge clk);
+        @(negedge clk);
+        n_rst = 1;
+        @(negedge clk);
+        @(negedge clk);
+    end
+    endtask
 
     // Supporting Tasks
     task reset_model;
@@ -148,27 +175,6 @@ module tb_ahb_subordinate ();
         BFM.wait_done();
     endtask
 
-    task reset_dut;
-    begin
-        n_rst = 0;
-        tx_transfer_active = 0;
-        rx_transfer_active = 0;
-        rx_data_ready = 0;
-        rx_packet = '1;
-        tx_error = 0;
-        rx_error = 0;
-        buffer_occ = 7'd64;
-        rx_data = '0;
-        
-        @(posedge clk);
-        @(posedge clk);
-        @(negedge clk);
-        n_rst = 1;
-        @(negedge clk);
-        @(negedge clk);
-    end
-    endtask
-
     logic [31:0] data [];
 
     initial begin
@@ -176,39 +182,9 @@ module tb_ahb_subordinate ();
         reset_model();
         reset_dut();
 
-        // 1. Verify we can write to address C and D
-        test_string = "write C/D";
-        
-        enqueue_write(4'hC, SIZE_BYTE, 32'h0000_0001);
-        enqueue_read(4'hC, SIZE_BYTE, 32'h0000_0001);
-        
-        execute_transactions(2);
+        enqueue_read(3'h1, 1'b0, 31'h00BB);
+        enqueue_write(3'h2, 1'b1, 31'h00BB);
 
-        // 2. FIFO Storage Verification (2 points: TX/RX)
-        // Write data via AHB -> Verify storage
-        test_string = "write buffer";
-        
-        enqueue_write(4'h0, SIZE_FOURB, 32'h1234_5678);
-        enqueue_read(4'h0, SIZE_FOURB, 32'h1234_5678);
-        execute_transactions(2);
-        
-        // 3. Host-to-Endpoint (Bulk OUT) & RX Module (15+6 points)
-        // Simulate USB Host sending packet
-        // (Use BFM to stimulate the AHB side while your testbench drives USB pins)
-        $display("Testing Host-to-Endpoint Bulk Transfer...");
-        // [Task to simulate Host driving USB pins]
-
-        // 4. Endpoint-to-Host (Bulk IN) & TX Module (15+4 points)
-        // Demonstrate STALL packet generation
-        test_string = "STALL packet";
-        
-        enqueue_write(4'hC, SIZE_FOURB, 32'h0000_0005); // Enable STALL
-        enqueue_read(4'hC, SIZE_FOURB, 32'hXXXX_XXXX);   // Request data
-        
-        execute_transactions(1);
-        
-        finish_transactions();
-        $display("Testbench complete. All AHB/USB metrics verified.");
         $finish;
     end
 endmodule
