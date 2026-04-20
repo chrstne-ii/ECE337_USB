@@ -14,6 +14,7 @@ module tb_data_buffer ();
     logic flush, clear, store_rx_packet_data, store_tx_data, get_rx_data, get_tx_packet_data;
     logic [6:0] buffer_occupancy;
     logic [7:0] tx_data, rx_packet_data, rx_data, tx_packet_data;
+    string test;
 
     // clockgen
     always begin
@@ -51,6 +52,7 @@ module tb_data_buffer ();
         reset_dut;
 
         //push rx data
+        test = "store rx";
         store_rx_packet_data = 1;
         @(negedge clk);
         @(negedge clk);
@@ -58,25 +60,30 @@ module tb_data_buffer ();
         @(negedge clk);
 
         //push tx data
+        test = "store tx";
         store_tx_data = 1;
         @(negedge clk);
         store_tx_data = 0;
         @(negedge clk)
 
         //pop rx data
+        test = "pop rx";
         get_rx_data = 1;
         @(negedge clk);
         get_rx_data = 0;
 
         //pop tx data
+        test = "pop tx";
         get_tx_packet_data = 1;
         @(negedge clk);
         get_tx_packet_data = 0;
 
         //hold fifo
+        test = "hold fifo";
         @(negedge clk);
 
         //clear fifo
+        test = "clear fifo";
         store_rx_packet_data = 1;
         repeat (10) @(negedge clk) //load data in
         store_rx_packet_data = 1;
@@ -87,6 +94,7 @@ module tb_data_buffer ();
         clear = 0;
 
         //flush fifo
+        test = "flush fifo";
         store_tx_data = 1;
         repeat (10) @(negedge clk) //load data in
         store_tx_data = 0;
