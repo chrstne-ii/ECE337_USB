@@ -3,7 +3,6 @@ quietly WaveActivateNextPane {} 0
 add wave -noupdate /tb_ahb_subordinate/DUT/clk
 add wave -noupdate /tb_ahb_subordinate/DUT/n_rst
 add wave -noupdate -divider Input
-add wave -noupdate /tb_ahb_subordinate/DUT/hburst
 add wave -noupdate /tb_ahb_subordinate/DUT/haddr
 add wave -noupdate /tb_ahb_subordinate/htrans
 add wave -noupdate /tb_ahb_subordinate/DUT/hsel
@@ -28,12 +27,15 @@ add wave -noupdate /tb_ahb_subordinate/DUT/clear
 add wave -noupdate /tb_ahb_subordinate/DUT/hready
 add wave -noupdate /tb_ahb_subordinate/DUT/hrready
 add wave -noupdate /tb_ahb_subordinate/DUT/hwready
+add wave -noupdate -color Salmon /tb_ahb_subordinate/DUT/read_fsm/state
 add wave -noupdate /tb_ahb_subordinate/DUT/get_rx_data
+add wave -noupdate /tb_ahb_subordinate/DUT/read_fsm/buffer
+add wave -noupdate -color Violet /tb_ahb_subordinate/DUT/write_fsm/state
 add wave -noupdate /tb_ahb_subordinate/DUT/store_tx_data
 add wave -noupdate /tb_ahb_subordinate/DUT/tx_data
 add wave -noupdate /tb_ahb_subordinate/DUT/hrdata
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {7696 ps} 0}
+WaveRestoreCursors {{Cursor 1} {83615 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100

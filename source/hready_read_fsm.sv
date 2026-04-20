@@ -5,13 +5,13 @@ module hready_read_fsm #(
     input logic clk, n_rst,
     input logic hresp, hwrite, hsel,
     input logic [3:0] haddr,
-    input logic [1:0] hsize,
+    input logic [2:0] hsize,
     input logic [7:0] rx_data,
     output logic hrready, get_rx_data, hr_avail,
     output logic [31:0] buffer
 );
 
-    typedef enum logic[3:0] {IDLE, FIRST, STORE_FIRST, SEC, STORE_SEC, THIRD, STORE_THIRD, FOURTH, STORE_FOURTH, HR_ACC,FIRST_S1,STORE_FIRST_S1} state_t;
+    typedef struct logic {IDLE, FIRST, STORE_FIRST, SEC, STORE_SEC, THIRD, STORE_THIRD, FOURTH, STORE_FOURTH, HR_ACC,FIRST_S1,STORE_FIRST_S1} state_t;
 
     state_t state, next_state;
     logic [31:0] next_buffer;
@@ -27,21 +27,21 @@ module hready_read_fsm #(
     end
 
     always_comb begin
-        next_state = state;
-        get_rx_data = 0;
-        hrready = 1;
-        hr_avail = 0;
-        next_buffer = buffer;
-
         casez(state)
+            next_state = state;
+            get_rx_data = 0;
+            hrready = 1;
+            hr_avail = 0;
+            next_buffer = buffer;
+
             IDLE: begin
                 get_rx_data = 0;
                 hrready = 1;
                 hr_avail = 0;
-                if(haddr<4'h4 && hsize > 2'h0 && !hresp && !hwrite && hsel) begin
+                if(haddr<4'h4 && hsize > 0 && !hresp && !hwrite && hsel) begin
                     next_state = FIRST;
                 end 
-                else if(haddr<4'h4 && hsize == 2'h0 && !hresp && !hwrite && hsel)begin
+                else if(haddr<4'h4 && hsize == 0 && !hresp && !hwrite && hsel)begin
                     next_state = FIRST_S1;
                 end
                 else begin
@@ -56,7 +56,7 @@ module hready_read_fsm #(
             STORE_FIRST_S1: begin
                 get_rx_data = 0;
                 hrready = 0;
-                next_buffer = {24'b0,rx_data};
+                next_buffer[7:0] = {24'b0,rx_data};
                 next_state = HR_ACC;
             end
             FIRST: begin
@@ -80,7 +80,7 @@ module hready_read_fsm #(
                 get_rx_data = 0;
                 hrready = 0;
                 next_buffer = {16'b0,rx_data,next_buffer[7:0]};
-                if(hsize == 2'h1) begin
+                if(hsize == 1) begin
                     next_state = IDLE;
                 end
             end
@@ -106,7 +106,7 @@ module hready_read_fsm #(
                 next_buffer[31:24] = rx_data;
                 next_state = HR_ACC;
             end
-            default: begin
+            HR_ACC: begin
                 hrready = 1;
                 hr_avail = 1;
                 next_state = IDLE;

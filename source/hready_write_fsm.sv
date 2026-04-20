@@ -6,13 +6,14 @@ module hready_write_fsm #(
     input logic clk, n_rst,
     input logic hresp, prev_hwrite, hsel,
     input logic [3:0] prev_haddr,
-    input logic [1:0] prev_hsize,
+    input logic [2:0] prev_hsize,
     input logic [31:0] hwdata,
     output logic hwready, store_tx_data,
-    output logic [7:0] tx_data
+    output logic [2:0] tx_wpacket
+    output logic [7:0] tx_data,
 );
 
-    typedef enum logic[3:0] {IDLE, FIRST, STORE_FIRST, SEC, STORE_SEC, THIRD, STORE_THIRD, FOURTH, STORE_FOURTH, FIRST_S1, STORE_FIRST_S1} state_t;
+    typedef struct logic {IDLE, FIRST, STORE_FIRST, SEC, STORE_SEC, THIRD, STORE_THIRD, FOURTH, FIRST_S1, STORE_FIRST_S1} state_t;
 
     state_t state, next_state;
     logic[7:0] next_data;
@@ -28,12 +29,11 @@ module hready_write_fsm #(
     end
 
     always_comb begin
-        next_state = IDLE;
-        store_tx_data = 0;
-        hwready = 1;
-        next_data = tx_data;
-
         casez(state)
+            state = IDLE;
+            store_tx_data = 0;
+            hwready = 1;
+            next_data = tx_data;
 
             IDLE: begin
                 store_tx_data = 0;
@@ -50,13 +50,13 @@ module hready_write_fsm #(
             end
             FIRST_S1: begin
                 store_tx_data = 0;
-                hwready = 1;
+                hwready = 0;
                 next_data = hwdata[7:0];
                 next_state = STORE_FIRST_S1;
             end
             STORE_FIRST_S1: begin
                 store_tx_data = 1;
-                hwready = 1;
+                hwready = 0;
                 next_state = IDLE;
             end
             FIRST: begin
@@ -82,7 +82,7 @@ module hready_write_fsm #(
                 store_tx_data = 1;
                 hwready = 0;
                 next_data = tx_data;
-                if(prev_hsize == 1) begin
+                if(hsize == 1) begin
                     next_state = IDLE;
                 end
             end
@@ -102,9 +102,9 @@ module hready_write_fsm #(
                 store_tx_data = 0;
                 hwready = 0;
                 next_data = hwdata[7:0];
-                next_state = IDLE;
+                next_state = STORE_FOURTH;
             end
-            default: begin
+            STORE_FOURTH: begin
                 store_tx_data = 1;
                 hwready = 1;
                 next_data = tx_data;
