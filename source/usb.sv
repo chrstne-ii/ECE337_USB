@@ -49,7 +49,7 @@ module usb #(
         .dp_in(dp_in), .dm_in(dm_in),
         .buffer_occ(buffer_occ),
         .rx_packet(rx_packet),
-        .rx_data(rx_data),
+        .rx_packet_data(rx_packet_data),
         .rx_data_ready(rx_data_ready), 
         .rx_transfer_active(rx_transfer_active),
         .rx_error(rx_error),

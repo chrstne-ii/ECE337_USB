@@ -1,6 +1,6 @@
 `timescale 1ns / 10ps
 
-module tb_usb_bulk_endpoint ();
+module tb_usb();
 
     // Core Parameters & Address Map
     localparam CLK_PERIOD = 10ns;
@@ -44,7 +44,7 @@ module tb_usb_bulk_endpoint ();
     
     // Device Under Test (DUT)
     
-    usb_ahb_top DUT (
+    usb DUT (
         .clk(clk),
         .n_rst(n_rst),
         .hsel(hsel),
@@ -79,7 +79,7 @@ module tb_usb_bulk_endpoint ();
         // Address Phase
         @(negedge clk);
         hsel = 1; hwrite = 1; haddr = addr; hwdata = data; 
-        htrans = 2'b10; hsize = size; hburst = 3'b000;
+        htrans = 2'b10; hsize = size;
         
         // Wait for Data Phase to complete
         do begin @(posedge clk); end while (!hready);
@@ -95,7 +95,7 @@ module tb_usb_bulk_endpoint ();
         // Address Phase
         @(negedge clk);
         hsel = 1; hwrite = 0; haddr = addr; 
-        htrans = 2'b10; hsize = size; hburst = 3'b000;
+        htrans = 2'b10; hsize = size;
         
         // Wait for Data Phase
         do begin @(posedge clk); end while (!hready);
