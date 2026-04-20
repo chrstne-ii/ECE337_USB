@@ -18,6 +18,7 @@ module tb_usb_rx ();
     logic [6:0] buffer_occ;
     logic [2:0] rx_packet;
     logic rx_transfer_active, rx_data_ready, rx_error, store_rx_packet_data, flush;
+    string test_name;
 
     // clockgen
     always begin
@@ -50,7 +51,7 @@ module tb_usb_rx ();
     integer i;
     begin
         // First synchronize to away from clock's rising edge
-        @(negedge usb_clk);
+        // @(negedge usb_clk);
 
         // Send data bits
         for(i = 0; i < 8; i = i + 1)
@@ -74,7 +75,7 @@ module tb_usb_rx ();
     task send_eop;
     input correct;
     begin
-        @(negedge usb_clk);
+        // @(negedge usb_clk);
         if(correct) begin
             dp_in = '0;
             dm_in = '0;
@@ -101,9 +102,11 @@ module tb_usb_rx ();
     input correct;
     begin
         send_sync();
+        @(negedge usb_clk);
         send_byte(.data(pid));
         send_byte(.data(data[7:0]));
         send_byte(.data(data[15:8]));
+        @(negedge usb_clk);
         send_eop(.correct(correct));
     end
     endtask
@@ -121,7 +124,8 @@ module tb_usb_rx ();
             send_byte(.data(data));
         end
         //CRC
-        send_byte(.data(16'h0000));
+        send_byte(.data(8'h00));
+        send_byte(.data(8'h00));
         send_eop(.correct(correct));
     end
     endtask
@@ -150,39 +154,44 @@ module tb_usb_rx ();
         dm_in = '0;
         @(negedge usb_clk)
 
+        test_name = "Valid IN Packet";
         // valid IN packet
         send_token(.pid(8'b01101001), .data(16'h00AB), .correct(1'b1));
-        
+        test_name = "IDLE Break";
         dp_in = '1;
         dm_in = '0;
         repeat(5) @(negedge usb_clk);
 
+        test_name = "Valid OUT Packet";
         // valid OUT packet
-        send_token(.pid(8'b11100001), .data(16'h00AB), .correct(1'b1));
-
+        send_token(.pid(8'b11100001), .data(16'h0749), .correct(1'b1));
+        test_name = "IDLE Break";
         dp_in = '1;
         dm_in = '0;
         repeat(5) @(negedge usb_clk);
 
+        test_name = "Valid ACK Packet";
         // valid ACK packet
         send_sync();
         send_byte(.data(8'b11010010));
         send_eop(.correct(1'b1));
-
+        test_name = "IDLE Break";
         dp_in = '1;
         dm_in = '0;
         repeat(5) @(negedge usb_clk);
 
+        test_name = "Valid DATA0 Packet";
         // valid DATA0 packet
         send_data(.pid(8'b11000011), .data(8'hF0), .num(7'd3), .correct(1'b1));
-
+        test_name = "IDLE Break";
         dp_in = '1;
         dm_in = '0;
         repeat(5) @(negedge usb_clk);
 
+        test_name = "Valid DATA1 Packet";
         // valid DATA1 packet
         send_data(.pid(8'b01001011), .data(8'hF0), .num(7'd3), .correct(1'b1));
-
+        test_name = "IDLE Break";
         dp_in = '1;
         dm_in = '0;
         repeat(5) @(negedge usb_clk);

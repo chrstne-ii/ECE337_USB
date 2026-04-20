@@ -77,7 +77,7 @@ module rx_fsm #(
             DATA_STORE: next_state = SHIFT5;
             SHIFT5: if(byte_done) next_state = EOP_YET;
             ACK: if(bits_done) next_state = EOP_CHECK;
-            EOP_CHECK: next_state = (((pbits[1:0] == '0) && (mbits[1:0] == '0)) && pbits[2] && mbits[2]) ? DONE : ERROR;
+            EOP_CHECK: next_state = (((pbits[1:0] == '0) && (mbits[1:0] == '0)) && pbits[2]) ? DONE : ERROR;
             DONE: next_state = IDLE;
             ERROR: if(new_packet) next_state = SHIFT1;
             default: next_state = IDLE;

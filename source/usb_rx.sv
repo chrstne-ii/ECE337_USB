@@ -42,14 +42,14 @@ module usb_rx (
             pserial_in = (first_in == synced_p) ? 1 : 0;
         end
         mserial_in = (next_in == synced_m) ? 1 : 0;
-        enable_shift = (flag4 && !first_bit) || (samp_flag) || (samp_count == 5'd8) || (samp_count == 5'd17);
+        enable_shift = ((flag4 && !first_bit) || (samp_flag) || (samp_count == 5'd8) || (samp_count == 5'd17));
     end
 
-    flex_counter #(.SIZE(3)) countTo4(
+    flex_counter #(.SIZE(2)) countTo2(
         .clk(clk), .n_rst(n_rst),
         .clear(new_packet),
         .count_enable(!flag4),
-        .rollover_val(3'd4),
+        .rollover_val(2'd2),
         /* verilator lint_off PINCONNECTEMPTY */
         .count_out(),
         /* verilator lint_on PINCONNECTEMPTY */
