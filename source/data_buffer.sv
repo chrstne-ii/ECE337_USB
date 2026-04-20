@@ -56,9 +56,10 @@ module data_buffer #(
     end
 
     always_ff @(posedge clk, negedge n_rst) begin : FIFO
+        
         if (!n_rst) begin
             fifo <= '0;
-        end else if (store_rx_packet_data||store_tx_data||clear||flush) begin
+        end else begin
             fifo <= next_fifo;
         end 
     end

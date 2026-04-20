@@ -96,10 +96,27 @@ module tb_data_buffer ();
         //flush fifo
         test = "flush fifo";
         store_tx_data = 1;
-        repeat (10) @(negedge clk) //load data in
+        repeat (10) @(negedge clk); //load data in
         store_tx_data = 0;
         flush = 1;
         @(negedge clk);
+
+        reset_dut;
+
+        //write to full
+        test = "write to full";
+        rx_packet_data = 8'b0;
+        tx_data = 8'b11111111;
+        store_rx_packet_data = 1;
+        repeat (63) @(negedge clk);
+        store_rx_packet_data = 1;
+        @(negedge clk);
+        store_rx_packet_data = 0;
+
+        store_tx_data = 1;
+        @(negedge clk);
+        @(negedge clk);
+
 
 
         $finish;

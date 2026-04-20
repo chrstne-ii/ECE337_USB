@@ -93,7 +93,7 @@ module tb_usb_tx ();
 
 
         //load STALL
-        test = "load STALL"
+        test = "load STALL";
         tx_packet = STALL;
         @(negedge clk) //STATE: STORE SYNC
         @(negedge clk) //STATE: LOAD SYNC
