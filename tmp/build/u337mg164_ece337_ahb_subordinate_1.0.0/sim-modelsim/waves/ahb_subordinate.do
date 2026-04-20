@@ -26,12 +26,15 @@ add wave -noupdate /tb_ahb_subordinate/DUT/clear
 add wave -noupdate /tb_ahb_subordinate/DUT/hready
 add wave -noupdate /tb_ahb_subordinate/DUT/hrready
 add wave -noupdate /tb_ahb_subordinate/DUT/hwready
+add wave -noupdate /tb_ahb_subordinate/DUT/hrdata
+add wave -noupdate /tb_ahb_subordinate/DUT/read_fsm/state
 add wave -noupdate /tb_ahb_subordinate/DUT/get_rx_data
+add wave -noupdate /tb_ahb_subordinate/DUT/write_fsm/state
 add wave -noupdate /tb_ahb_subordinate/DUT/store_tx_data
 add wave -noupdate /tb_ahb_subordinate/DUT/tx_data
-add wave -noupdate /tb_ahb_subordinate/DUT/hrdata
+add wave -noupdate /tb_ahb_subordinate/DUT/regD
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {7696 ps} 0}
+WaveRestoreCursors {{Cursor 1} {119503 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100
@@ -47,4 +50,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {210 ns}
+WaveRestoreZoom {0 ps} {199500 ps}

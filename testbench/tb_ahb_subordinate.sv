@@ -175,7 +175,21 @@ module tb_ahb_subordinate ();
         BFM.wait_done();
     endtask
 
-    logic [31:0] data [];
+    logic [31:0] data;
+    logic [15:0] reg4,reg6;
+    logic [7:0] reg8;
+
+    logic in, out, ack, data0, data1;
+
+    assign in = (rx_packet == 1);
+    assign out = (rx_packet == 2);
+    assign ack = (rx_packet == 3);
+    assign data0 = (rx_packet == 4);
+    assign data1 = (rx_packet == 5);
+
+    assign reg4 = {6'b0, tx_transfer_active, rx_transfer_active, 2'b0, data1, data0, ack, out, in, rx_data_ready};
+    assign reg6 = {7'b0,tx_error,7'b0,rx_error};
+    assign reg8 = {1'b0,buffer_occ};
 
     initial begin
         n_rst = 1;
@@ -183,15 +197,21 @@ module tb_ahb_subordinate ();
         reset_dut();
 
         enqueue_write(4'h2, 2'b1, 32'h00BB);
-        enqueue_read(4'h1, 2'b0, 32'h00BB);
-
-        execute_transactions(2);
-
         enqueue_write(4'hC,2'b1,32'h0000_0101);
-        enqueue_read(4'hC,2'b1,32'h0000_0101);
+        enqueue_read(4'hC,2'b1,32'h0);
 
-        execute_transactions(2);
-        
+        execute_transactions(3);
+
+        finish_transactions();
+
+        @(negedge clk);
+        tx_transfer_active = 1;
+        rx_error = 1;
+        rx_packet = 3;
+        buffer_occ = 7'd4;
+
+        enqueue_read(4'h4, 2'h2, {reg6,reg4});
+        execute_transactions(1);
         finish_transactions();
 
         $finish;

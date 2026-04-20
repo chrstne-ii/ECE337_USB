@@ -11,7 +11,7 @@ module hready_read_fsm #(
     output logic [31:0] buffer
 );
 
-    typedef enum logic [4:0] {IDLE, FIRST_S4, STORE_FIRST_S4, SEC_S4, STORE_SEC_S4, THIRD_S4, STORE_THIRD_S4, FOURTH_S4, STORE_FOURTH_S4, HR_ACC,FIRST_S1,STORE_FIRST_S1,
+    typedef enum logic [4:0] {IDLE, FIRST_S4, STORE_FIRST_S4, SEC_S4, STORE_SEC_S4, THIRD_S4, STORE_THIRD_S4, FOURTH_S4, STORE_FOURTH_S4, HR_ACC,STORE_FIRST_S1,
     FIRST_S3, STORE_FIRST_S3, SEC_S3, STORE_SEC_S3, THIRD_S3, STORE_THIRD_S3, FIRST_S2, STORE_FIRST_S2, SEC_S2, STORE_SEC_S2} state_t;
 
     state_t state, next_state;
@@ -45,24 +45,20 @@ module hready_read_fsm #(
                 if(haddr==4'h1 && hsize == 2 && !hresp && !hwrite && hsel && hready) begin
                     next_state = FIRST_S3;
                 end 
-                if(haddr==4'h2 || hsize == 1 && !hresp && !hwrite && hsel && hready) begin
+                if((haddr==4'h2 || (haddr < 4'h4 && hsize == 1)) && !hresp && !hwrite && hsel && hready) begin
                     next_state = FIRST_S2;
                 end 
-                else if((haddr<4'h4 && hsize == 0 || haddr == 4'h3) && !hresp && !hwrite && hsel && hready)begin
-                    next_state = FIRST_S1;
+                else if((haddr<4'h4 && (hsize == 0 || haddr == 4'h3)) && !hresp && !hwrite && hsel && hready)begin
+                    next_state = STORE_FIRST_S1;
+                    get_rx_data = 1;
                 end
                 else begin
                     next_state = IDLE;
                 end
             end
-            FIRST_S1: begin
-                get_rx_data = 1;
-                hrready = 0;
-                next_state = STORE_FIRST_S1;
-            end
             STORE_FIRST_S1: begin
-                get_rx_data = 0;
-                hrready = 0;
+                get_rx_data = 1;
+                hrready = 1;
                 next_buffer = {24'b0,rx_data};
                 next_state = HR_ACC;
             end

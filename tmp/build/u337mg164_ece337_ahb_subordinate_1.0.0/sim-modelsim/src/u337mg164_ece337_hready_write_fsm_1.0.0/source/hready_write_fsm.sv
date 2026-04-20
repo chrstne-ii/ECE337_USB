@@ -39,13 +39,13 @@ module hready_write_fsm #(
                 next_state = IDLE;
                 store_tx_data = 0;
                 hwready = 1;
-                if(haddr<4'h4 && hsize == 4'h2 && !hresp && !hwrite && hsel && hready) begin
+                if(haddr == 4'h0 && hsize == 4'h2 && !hresp && hwrite && hsel && hready) begin
                     next_state = FIRST;
                 end 
-                else if(haddr<4'h4 && hsize == 0 && !hresp && !hwrite && hsel && hready)begin
+                else if(haddr<4'h4 && hsize == 0 && !hresp && hwrite && hsel && hready)begin
                     next_state = FIRST_S1;
                 end
-                else if(haddr<4'h4 && hsize == 4'h1 && !hresp && !hwrite && hsel && hready)begin
+                else if(haddr<4'h4 && hsize == 4'h1 && !hresp && hwrite && hsel && hready)begin
                     next_state = FIRST_S2;
                 end
             end
@@ -57,7 +57,7 @@ module hready_write_fsm #(
             end
             STORE_FIRST_S1: begin
                 store_tx_data = 1;
-                hwready = 0;
+                hwready = 1;
                 next_state = IDLE;
             end
             FIRST: begin
@@ -112,19 +112,19 @@ module hready_write_fsm #(
                 store_tx_data = 0;
                 hwready = 0;
                 next_data = hwdata[31:24];
-                next_state = STORE_FIRST;
+                next_state = STORE_FIRST_S2;
             end
             STORE_FIRST_S2: begin
                 store_tx_data = 1;
                 hwready = 0;
                 next_data = tx_data;
-                next_state = SEC;
+                next_state = SEC_S2;
             end
             SEC_S2: begin
                 store_tx_data = 0;
                 hwready = 0;
                 next_data = hwdata[23:16];
-                next_state = STORE_SEC;
+                next_state = STORE_SEC_S2;
             end
             STORE_SEC_S2: begin
                 next_state = IDLE;

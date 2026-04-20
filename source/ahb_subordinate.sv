@@ -303,12 +303,15 @@ module ahb_subordinate #(
         if(prev_hwrite == 1 && !hresp && !hresp && hready && hsel) begin
             if(prev_haddr == 4'hD) begin
                 regD = hwdata[7:0];
+                if(hwdata[7:0] == 1) begin
+                    clear = 1;
+                end
             end
             else if(prev_haddr == 4'hC && prev_hsize >= 1) begin
                 regD = hwdata[15:8];
-            end
-            if(hwdata == 1) begin
-                clear = 1;
+                if(hwdata[15:8] == 1) begin
+                    clear = 1;
+                end
             end
         end
 
