@@ -9,7 +9,8 @@ module usb_rx (
     output logic rx_data_ready, rx_transfer_active, rx_error, store_rx_packet_data, flush
 );
     logic synced_p, synced_m, signal, new_packet, flag4, first_in, next_in, first_bit, pserial_in, mserial_in, samp_flag;
-    logic enable_shift, byte_shift, bits_shift, byte_done, bits_done;
+    logic enable_shift, byte_shift, bits_shift, byte_done, bits_done, eop;
+    logic [1:0] count; 
     logic [2:0] pbits, mbits;
     logic [4:0] samp_count;
     logic [7:0] byte_in;
@@ -23,8 +24,12 @@ module usb_rx (
             first_in <= '0;
             next_in <= '0;
             first_bit <= '0;
+            count <= '0;
+        end else if(samp_flag && !synced_p && !synced_m) begin
+            count <= count + 1;
         end else begin
             signal <= synced_p;
+            count <= '0;
             if(enable_shift) begin
                 first_in <= synced_p;
                 next_in <= synced_m;
@@ -35,6 +40,7 @@ module usb_rx (
     end
 
     always_comb begin
+        eop = (count >= 2'd2) && synced_p && !synced_m;
         new_packet = !synced_p && signal && !rx_transfer_active;
         if(flag4 && !first_bit) begin
             pserial_in = '0;
@@ -124,6 +130,7 @@ module usb_rx (
         .new_packet(new_packet),
         .byte_done(byte_done),
         .bits_done(bits_done),
+        .eop(eop),
         .pbits(pbits), .mbits(mbits),
         .buffer_occ(buffer_occ),
         .byte_in(byte_in),

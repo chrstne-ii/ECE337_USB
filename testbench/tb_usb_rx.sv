@@ -164,6 +164,16 @@ module tb_usb_rx ();
         dp_in = '1;
         dm_in = '0;
         repeat(5) @(negedge usb_clk);
+        
+        test_name = "Invalid PID";
+        send_sync();
+        @(negedge usb_clk);
+        send_byte(.data(8'b11110010));
+        send_eop(.correct(1'b1));
+        test_name = "IDLE Break";
+        dp_in = '1;
+        dm_in = '0;
+        repeat(5) @(negedge usb_clk);
 
         test_name = "Valid OUT Packet";
         // valid OUT packet
@@ -179,6 +189,16 @@ module tb_usb_rx ();
         @(negedge usb_clk);
         send_byte(.data(8'b11010010));
         send_eop(.correct(1'b1));
+        test_name = "IDLE Break";
+        dp_in = '1;
+        dm_in = '0;
+        repeat(5) @(negedge usb_clk);
+
+        test_name = "Incorrect EOP";
+        send_sync();
+        @(negedge usb_clk);
+        send_byte(.data(8'b11010010));
+        send_eop(.correct('0));
         test_name = "IDLE Break";
         dp_in = '1;
         dm_in = '0;

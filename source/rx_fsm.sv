@@ -4,7 +4,7 @@ module rx_fsm #(
     // parameters
 ) (
     input logic clk, n_rst,
-    input logic new_packet, byte_done, bits_done,
+    input logic new_packet, byte_done, bits_done, eop,
     input logic [2:0] pbits, mbits,
     input logic [6:0] buffer_occ,
     input logic [7:0] byte_in,
@@ -13,8 +13,8 @@ module rx_fsm #(
     output logic [7:0] rx_packet_data
 );
     typedef enum logic [6:0] {IDLE, SHIFT1, SYNC_CHECK, SHIFT2, PID_CHECK, PID_IDENTIFY, SHIFT3, TOKEN1, TOKEN2,
-                              TOKEN_FLUSH, TOKEN_STORE1, TOKEN_STORE2, EOP_SHIFT, SHIFT4, DATA1, DATA2, EOP_YET, 
-                              DATA_STORE, SHIFT5, ACK, EOP_CHECK, DONE, ERROR} state_t;
+                              TOKEN_FLUSH, TOKEN_STORE1, TOKEN_STORE2, EOP_SHIFT, SHIFT4, DATA1, DATA2,
+                              EOP_YET, DATA_STORE, SHIFT5, ACK, EOP_CHECK, DONE, ERROR} state_t;
 
     state_t current, next_state;
     logic [2:0] saved_pid;
@@ -40,8 +40,8 @@ module rx_fsm #(
     end
 
     always_comb begin : states
-        logic eop;
-        eop = (byte_in[1:0] == '0) && byte_in[2];
+        // logic eop;
+        // eop = (saved_byte1[0] && 3'b010);
         next_state = current;
 
         case (current)
