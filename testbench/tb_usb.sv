@@ -4,6 +4,7 @@ module tb_usb();
 
     // Core Parameters & Address Map
     localparam CLK_PERIOD = 10ns;
+    localparam USB_PERIOD = 83.33ns;
     
     localparam [3:0] BUFF_ADDR = 4'h0;
     localparam [3:0] STAT_ADDR   = 4'h4;
@@ -29,7 +30,7 @@ module tb_usb();
 
     // Signals
     
-    logic clk, n_rst;
+    logic clk, n_rst, usb_clk;
     
     // AHB Subordinate Interface
     logic hsel, hwrite, hready, hresp;
@@ -74,6 +75,13 @@ module tb_usb();
         #(CLK_PERIOD / 2.0);
         clk = 1;
         #(CLK_PERIOD / 2.0);
+    end
+
+    always begin
+        usb_clk = 0;
+        #(USB_PERIOD / 2.0);
+        usb_clk = 1;
+        #(USB_PERIOD / 2.0);
     end
 
     task send_byte;
@@ -194,81 +202,164 @@ module tb_usb();
     end
     endtask
 
-    
+    task send_data;
+    input [7:0] pid;
+    input [7:0] data;
+    input [6:0] num;
+    input correct;
+    begin
+        integer i;
+        send_sync();
+        send_byte(.data(pid));
+        for(i = 0; i < num; i = i + 1) begin
+            send_byte(.data(data));
+        end
+        //CRC
+        send_byte(.data(8'h00));
+        send_byte(.data(8'h00));
+        send_eop(.correct(correct));
+    end
+    endtask
+
     // Main Test Sequence
     
     initial begin
         // Initialize
         clk = 0; n_rst = 0; test_case_num = 0;
-        hsel = 0; hwrite = 0; htrans = 0;
-        
-        $display("Starting USB Bulk Endpoint Testbench...");
+        hsel = 0; hwrite = 0; htrans = 0; haddr = '0;
+        hsize = '0; hwdata = '0;
 
         // Reset DUT
         repeat(5) @(posedge clk);
         n_rst = 1;
         repeat(5) @(posedge clk);
 
-        // ====================================================================
-        // Rubric: (15 pts) Host-to-Endpoint USB 1.1 Bulk Transfers (OUT)
-        // Rubric: (1 pt) FIFO stores data from USB RX and provides to SoC
-        // Rubric: (6 pts) USB RX module correctly receives USB packet types
-        // ====================================================================
         test_case_num++;
 
-        $display("Test %0d: Host-to-Endpoint (OUT)", test_case_num);
+        $display("Test %0d: Host-to-Endpoint (OUT-ACK)", test_case_num);
         
-        // 1. Simulate Host sending OUT token + DATA0 packet (e.g., 4 bytes: 0x11223344)
+        //Simulate Host sending OUT token + DATA0 packet 
         send_token(.pid(8'b11100001), .data(16'h00AB), .correct(1'b1));
-        
-        // Wait for transfer to complete on the bus
-        repeat(130) @(posedge clk); 
 
-        // 2. Read from AHB FIFO to prove data arrived correctly (1 pt FIFO RX requirement)
-        ahb_read(BUFF_ADDR, read_val, 2'h1);
-        if(read_val !== 32'h00AB) $error("FIFO did not correctly store RX data from Host!");
+        send_data(8'b1100_0011,8'b1010_1010,7'd64,1'b1);
+
+        ahb_read(BUFF_ADDR, read_val, 2'h1);    
+        if(read_val !== 32'hAAAA) $error("FIFO did not correctly store RX data from Host!");
         else $display("Host-to-Endpoint OUT Transfer Successful.");
 
-        // ====================================================================
-        // Rubric: (15 pts) Endpoint-to-Host USB 1.1 Bulk Transfers (IN)
-        // Rubric: (1 pt) FIFO stores data from SoC and provides to USB TX
-        // ====================================================================
+        ahb_read(BUFF_ADDR, read_val, 2'h1);
+        if(read_val !== 32'hAAAA) $error("FIFO did not correctly store RX data from Host!");
+        else $display("Host-to-Endpoint OUT Transfer Successful.");
+
+        ahb_write(4'hC,32'h3,2'h0); //ACK packet
+
+
         test_case_num++;
-        $display("Test %0d: Endpoint-to-Host (IN) Verification", test_case_num);
 
-        // 1. SoC writes data to the FIFO (1 pt FIFO TX requirement)
-        ahb_write(BUFF_ADDR, 32'h55667788, 2'h2);
-
-        // 2. Simulate Host sending IN token
-        // ** REPlACE this with your model's built-in host transfer function **
-        // tb_model.send_usb_packet(PID_IN, ...);
+        $display("Test %0d: Host-to-Endpoint (OUT-NAK)", test_case_num);
         
-        // 3. Monitor the bus to ensure the TX module outputs DATA0/DATA1 with 0x55667788
-        // tb_model.expect_usb_packet(PID_DATA1, 32'h55667788);
-        
-        repeat(50) @(posedge clk);
-        $display("Endpoint-to-Host IN Transfer Validated (assuming built-in checkers passed).");
+        //Simulate Host sending OUT token + DATA1 packet 
+        send_token(.pid(8'b11100001), .data(16'h00AB), .correct(1'b1));
 
-        // ====================================================================
-        // Rubric: (4 pts) TX module handles sending STALL packet
-        // ====================================================================
+        send_data(8'b1101_1011,8'b0011_0011,7'd32,1'b1);
+
+        ahb_read(BUFF_ADDR, read_val, 2'h1);    
+        if(read_val !== 32'h33) $error("FIFO did not correctly store RX data from Host!");
+        else $display("Host-to-Endpoint OUT Transfer Successful.");
+
+        ahb_write(4'hC,32'h4,2'h0); //NAK packet
+
+
         test_case_num++;
-        $display("Test %0d: STALL Packet Generation", test_case_num);
 
-        // 1. Put Endpoint into STALL condition via AHB Control Register
-        // (Assuming bit 1 of CTRL reg is force_stall, adjust to your spec)
-        ahb_write(TX_ADDR, 32'h0000_0002, 2'h0); 
-
-        // 2. Host requests data via IN token
-        // tb_model.send_usb_packet(PID_IN, ...);
-
-        // 3. Verify DUT responds immediately with STALL PID
-        // tb_model.expect_usb_packet(PID_STALL, ...);
+        $display("Test %0d: Host-to-Endpoint (OUT-STALL)", test_case_num);
         
-        repeat(50) @(posedge clk);
-        $display("STALL generation verified.");
+        //Simulate Host sending OUT token + DATA1 packet 
+        send_token(.pid(8'b11100001), .data(16'h00AB), .correct(1'b1));
 
-        // Finish simulation
+        send_data(8'b1101_1011,8'b0011_0011,7'd64,1'b1);
+
+        ahb_read(BUFF_ADDR, read_val, 2'h1);    
+        if(read_val !== 32'h3333) $error("FIFO did not correctly store RX data from Host!");
+        else $display("Host-to-Endpoint OUT Transfer Successful.");
+
+        ahb_read(BUFF_ADDR, read_val, 2'h1);
+        if(read_val !== 32'h3333) $error("FIFO did not correctly store RX data from Host!");
+        else $display("Host-to-Endpoint OUT Transfer Successful.");
+
+        ahb_write(4'hC,32'h5,2'h0); //STALL packet
+
+        test_case_num++;
+
+        $display("Test %0d: Endpoint-to-Host (IN-ACK)", test_case_num);
+        
+        //Simulate Host sending IN token + DATA0 packet 
+        send_token(.pid(8'b01101001), .data(16'h00AB), .correct(1'b1));
+
+        ahb_read(BUFF_ADDR, read_val, 2'h1);    
+        if(read_val !== 32'hAB) $error("FIFO did not correctly store RX data from Host!");
+        else $display("Host-to-Endpoint OUT Transfer Successful.");
+
+        ahb_write(4'h0,32'hBEEF_BEEF,2'h2);
+        ahb_write(4'hC,32'h1,2'h0); // DATA0
+
+        repeat(300) @(posedge clk);
+
+        ahb_write(4'h0,32'hBEEF_BEEF,2'h2);
+        ahb_write(4'hC,32'h2,2'h0); // DATA1
+
+        repeat(300) @(posedge clk);
+
+        ahb_write(4'hC,32'h3,2'h0); //ACK packet
+
+
+        test_case_num++;
+
+        $display("Test %0d: Endpoint-to-Host (IN-NAK)", test_case_num);
+        
+        //Simulate Host sending IN token + DATA0 packet 
+        send_token(.pid(8'b01101001), .data(16'h00AB), .correct(1'b1));
+
+        ahb_read(BUFF_ADDR, read_val, 2'h1);    
+        if(read_val !== 32'hAB) $error("FIFO did not correctly store RX data from Host!");
+        else $display("Host-to-Endpoint OUT Transfer Successful.");
+
+        ahb_write(4'h0,32'hBEEF_BEEF,2'h2);
+        ahb_write(4'hC,32'h1,2'h0); // DATA0
+
+        repeat(300) @(posedge clk);
+
+        ahb_write(4'h0,32'hBEEF_BEEF,2'h2);
+        ahb_write(4'hC,32'h2,2'h0); // DATA1
+
+        repeat(300) @(posedge clk);
+
+        ahb_write(4'hC,32'h4,2'h0); //NAK packet
+
+
+        test_case_num++;
+
+        $display("Test %0d: Endpoint-to-Host (IN-STALL)", test_case_num);
+        
+        //Simulate Host sending IN token + DATA0 packet 
+        send_token(.pid(8'b01101001), .data(16'h00AB), .correct(1'b1));
+
+        ahb_read(BUFF_ADDR, read_val, 2'h1);    
+        if(read_val !== 32'hAB) $error("FIFO did not correctly store RX data from Host!");
+        else $display("Host-to-Endpoint OUT Transfer Successful.");
+
+        ahb_write(4'h0,32'hBEEF_BEEF,2'h2);
+        ahb_write(4'hC,32'h1,2'h0); // DATA0
+
+        repeat(300) @(posedge clk);
+
+        ahb_write(4'h0,32'hBEEF_BEEF,2'h2);
+        ahb_write(4'hC,32'h2,2'h0); // DATA1
+
+        repeat(300) @(posedge clk);
+
+        ahb_write(4'hC,32'h5,2'h0); //STALL packet
+
         $display("All test vectors executed.");
         $finish;
     end

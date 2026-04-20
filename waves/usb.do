@@ -3,6 +3,7 @@ quietly WaveActivateNextPane {} 0
 add wave -noupdate /tb_usb/clk
 add wave -noupdate /tb_usb/n_rst
 add wave -noupdate -divider Input
+add wave -noupdate /tb_usb/phase
 add wave -noupdate /tb_usb/hsel
 add wave -noupdate /tb_usb/hwrite
 add wave -noupdate /tb_usb/hready
@@ -27,7 +28,7 @@ add wave -noupdate /tb_usb/DUT/sub/hwready
 add wave -noupdate /tb_usb/DUT/sub/hrready
 add wave -noupdate /tb_usb/DUT/sub/hresp_high
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {236885 ps} 0}
+WaveRestoreCursors {{Cursor 1} {54785734 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100
@@ -43,4 +44,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {112904 ps} {318188 ps}
+WaveRestoreZoom {54542784 ps} {55235046 ps}
