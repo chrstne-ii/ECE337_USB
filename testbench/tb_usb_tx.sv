@@ -64,9 +64,9 @@ module tb_usb_tx ();
         //test get_tx_packet_data low
         test = "test get_tx low";
         buffer_occupancy = 12;
-        @(negedge clk) //STATE: STORE SYNC
-        @(negedge clk) //STATE: LOAD SYNC
-        @(negedge clk) //STATE: STORE PID 
+        @(negedge clk); //STATE: STORE SYNC
+        @(negedge clk); //STATE: LOAD SYNC
+        @(negedge clk); //STATE: STORE PID 
         repeat (75) @(negedge clk); //STATE: LOAD_PID
 
         test = "test get_tx high";
@@ -80,7 +80,8 @@ module tb_usb_tx ();
             buffer_occupancy--;
         end
         buffer_occupancy = 0;
-        @(negedge clk) //STATE: STORE CRC1 
+        tx_packet = 0;
+        @(negedge clk); //STATE: STORE CRC1 
         repeat (75) @(negedge clk); //STATE: LOAD CRC1 
         @(negedge clk); //STATE: STORE CRC2
         repeat (75) @(negedge clk); //LOAD CRC2
@@ -88,7 +89,7 @@ module tb_usb_tx ();
         repeat (75) @(negedge clk); //LOAD EOP 1
         repeat (8) @(negedge clk); //LOAD EOP 2
         repeat(8) @(negedge clk) //RESET
-        @(negedge clk) //IDLE 
+        @(negedge clk); //IDLE 
 
 
         //load STALL
@@ -100,8 +101,6 @@ module tb_usb_tx ();
         repeat (75) @(negedge clk); //STATE: LOAD_PID
         @(negedge clk); //STORE EOP
         repeat (75) @(negedge clk); //LOAD EOP 1
-        repeat (8) @(negedge clk); //LOAD EOP 2
-        repeat(8) @(negedge clk) //RESET
 
 
         
